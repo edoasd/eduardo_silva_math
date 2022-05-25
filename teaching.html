@@ -46,15 +46,23 @@ My Teaching Page
 
 <br clear="all" />
 
+         <p id="demo">Last Updated on  </p>
+         <script>
+            var dt = document.lastModified;    
+            dt = dt.replace("/", " ");
+            dt = dt.replace("/", " ");
+            dt = dt.replace("-", " ");
+            dt = dt.replace("-", " ");
+            // '/' or '-' replcae these separtors with empty space
+            // Now your string can be parsed to Date Object
+            var anotherDateObject = new Date(Date.parse(dt));
+            document.getElementById("demo").innerHTML = "Last updated on " + anotherDateObject;        
+         </script>
+         
+         
+         <noscript>Sorry, your browser does not support JavaScript!</noscript>
 
-<table cellpadding="2">
-<tr>
-<td ><i>Last modified on <? echo  document.write("Last Modified: "+date) ?>.</i></td>
-</tr>
-<tr>
-<td ><i>Last modified on <? echo  date("F d, Y", filemtime($_SERVER["SCRIPT_FILENAME"])) ?>.</i></td>
-</tr>
-</table>
+
 
 </div>
 </div>

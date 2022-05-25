@@ -47,11 +47,23 @@ My Other Page
 <br clear="all" />
 
 
-<table cellpadding="2">
-<tr>
-  <td ><i>Last modified on <? echo  date("F d, Y", filemtime($_SERVER["SCRIPT_FILENAME"])) ?>.</i></td>
-</tr>
-</table>
+         <p id="demo">Last Updated on  </p>
+         <script>
+            var dt = document.lastModified;    
+            dt = dt.replace("/", " ");
+            dt = dt.replace("/", " ");
+            dt = dt.replace("-", " ");
+            dt = dt.replace("-", " ");
+            // '/' or '-' replcae these separtors with empty space
+            // Now your string can be parsed to Date Object
+            var anotherDateObject = new Date(Date.parse(dt));
+            document.getElementById("demo").innerHTML = "Last updated on " + anotherDateObject;        
+         </script>
+         
+         
+         <noscript>Sorry, your browser does not support JavaScript!</noscript>
+
+
 
 </div>
 </div>
