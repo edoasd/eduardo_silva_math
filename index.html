@@ -1,107 +1,80 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
 
-
+<html lang="en">
 <head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-<meta http-equiv="Content-Style-Type" content="text/css"/>
-<meta name="google-site-verification" content="rHzuMrZ9hW1z7XfkD3gBYqXxNobIFik4SMrHhTfJkRE" />
-
-<title>Eduardo Silva</title>
-<link href="styles/trs-style-iWeblike.css" rel="stylesheet" type="text/css" />
-<link rel="icon" href="images-static/myphoto.png" type="image/png" />
+  <script type="text/x-mathjax-config">MathJax.Hub.Config ( {tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']] }} );</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <meta charset="UTF-8">
+  <meta name="description" content="Silva_research_webpage" />
+  <title>E. Silva - Home</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
-
-<body>
-
-<div id="navigation">
-<table>
-<tr>
-<td><a href="index.html">Home</a></td>
-<td><a href="research.html">Research</a></td>
-<!--
-<td><a href="teaching.html">Teaching</a></td>
-<td><a href="other.html">Other</a></td>
--->
-</tr>
-</table>
-
-
-<div class="hr"> <hr /> </div>
-
-
-
-
-</div>   <! End of navigation div -->
-
-<div id="name">
-Eduardo Silva
+<body style="background-color: #f7dcee">
+   <div id="movingblock2"> 
+   <div id="header_in2">
+<br><p style=" font-size: 25pt; font-weight:normal; letter-spacing: 1px; margin: auto; text-align: center;">Eduardo Silva </p>
 </div>
-
-<div id="left">
-I am a PhD student at École Normale Supérieure (Paris) under the supervision of Anna Erschler.
-<br>
-<br>
-
-Before, I did a Mathematical Engineering degree together with a Master in Applied Mathematics at Universidad de Chile, Master thesis under the direction of Michael Schraudner,<br>  and a Master 2 Mathématiques Fondamentales at Université Sorbonne Paris Nord, Master mémoire under the direction of Romain Tessera.
-<br>
-<br>
-My main interests are Symbolic Dynamics on groups and Geometric Group Theory, in particular the growth of groups and the geometric properties of their Cayley graphs.
-
-</div>
-
-<div id="main">
-<img src="images-static/photo_me.jpg" width="600">
-
-<table>
+  </div>
+  <!-- *********  Header  ********** -->
+  <div id="movingblock">
+    <div id="header_in">
+      <div id="menu">
+        <ul>
+	  <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="research.html">Research</a></li>
+	<!--  <li><a href="talks.html">Talks</a></li>
+	<li><a href="teaching.html">Teaching</a></li> -->
+        </ul>
+      </div>
+    </div>
+    <!-- *********  Main part (slider)  ********** -->
+    <div id="title_top">
+      <div id="title_top_in">
+      </div>
+    </div>
+  </div>   
+  <!-- *********  Content  ********** -->
+  <div id="content">
+    <div>   
+    <img class="image mainimg" src="images/photo_me.jpg" alt=" " title="profile_pic" height="350"/>
+    <p id="header1">  PhD student at <a href="https://www.math.ens.psl.eu/"> Département de Mathématiques et Applications (DMA)</a> of École Normale Supérieure (Paris). My advisor is <a href=https://sites.google.com/site/annaerschler/  >Anna Erschler</a>. 
+    <hr>
+   <p>
+   My main interests are symbolic dynamics on groups, and the geometric properties of Cayley graphs of finitely generated groups. I try to understand things that <i>depend</i> on the choice of generating set, as for example the existence of dead ends of unbounded depth, or growth series.  </p>
+    </div>
+    
+    <hr>
+<div id="footer">
+<br clear="all" />	
+<!-- <table>
 <tr> <td>École Normale Supérieure</td></tr>
 <tr><td>Département de Mathématiques & Applications</td></tr>
 <tr><td>45 rue d'Ulm </td></tr>
 <tr><td>Paris 75005, France</td></tr>
 
 </table>
-
+-->
 <table>
 <tr><td><bold>Emails:</bold> eduardo.silva@ens.fr / eduardo.silva@ug.uchile.cl</td> </tr>
-<tr><td><bold>Office:</bold> T14, Toits du DMA, ENS 45 rue d'Ulm, Paris 75005</td> </tr>
+<tr><td><bold>Office:</bold> T14, Toits du DMA, ENS, 45 rue d'Ulm, Paris 75005</td> </tr>
 </tr>
 </table>
 
 </div>
 
-<div id="footer">
 
-<br clear="all" />
-
-
-         <p id="demo">Last Updated on  </p>
-         <script>
-            var dt = document.lastModified;    
-            dt = dt.replace("/", " ");
-            dt = dt.replace("/", " ");
-            dt = dt.replace("-", " ");
-            dt = dt.replace("-", " ");
-            // '/' or '-' replcae these separtors with empty space
-            // Now your string can be parsed to Date Object
-            var anotherDateObject = new Date(Date.parse(dt));
-            document.getElementById("demo").innerHTML = "Last updated on " + anotherDateObject;        
-         </script>
-         
-         
-         <noscript>Sorry, your browser does not support JavaScript!</noscript>
-
+<p style="font-size: 10pt; font-weight:normal; text-align: center;" id ="fecha_actual"></p>
+<script>
+var d = new Date(document.lastModified); 
+document.getElementById("fecha_actual").innerHTML = 'Last modified on '+ d;
+</script>
 </div>
-
-
-
-
-
-
-
-
 
 </body>
 </html>
+
 
 
