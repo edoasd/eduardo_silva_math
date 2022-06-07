@@ -1,0 +1,30 @@
+\begin{tikzpicture}[dot/.style={circle,inner sep=2pt,fill}]
+\node at (-6.5,0.5) {\Huge $\dots$};
+\node at (6.5,0.5) {\Huge $\dots$};
+\clip (-5.5,-1) rectangle (5.5,2);
+\foreach \x in {0,2,4,6,8,10,12}{
+	\node[dot,label={[label distance=0.2cm]-90:\footnotesize \x}] (\x) at (\x*0.5,0) {};
+}
+\foreach \x in {-2,-4,-6,-8,-10,-12}{
+	\node[dot,label={[label distance=0.2cm]-90:\footnotesize \x}] (\x) at (\x*0.5,0) {};
+}
+\foreach \x[evaluate=\x as \y using {int(\x+1)}] in {0,2,4,6,8,10,12}{
+	\node[dot,label={[label distance=0.2cm]90:\footnotesize \y}] (\x+1) at (\x*0.5,1) {};
+}
+\foreach \x[evaluate=\x as \y using {int(\x+1)}] in {-2,-4,-6,-8,-10,-12}{
+	\node[dot,label={[label distance=0.2cm]90:\footnotesize \y}] (\x+1) at (\x*0.5,1) {};
+}
+
+\foreach \x [evaluate=\x as \y using {int(\x+2)}] in {-12,-10,...,10}{
+	\draw[thick,-](\x) -- (\y);
+	\draw[thick,-] (\x) -- (\x+1);
+}
+	\draw[thick,-] (12) -- (12+1);
+\foreach \x[evaluate=\x as \y using {int(\x+2)}] in {-12,-10,...,10}{
+	\draw[thick,-](\x+1) -- (\y+1);
+}
+\foreach \x[evaluate=\x as \y using {int(\x+2)}] in {-12,-10,...,10}{
+	\draw[thick,-](\y) -- (\x+1);
+}
+
+\end{tikzpicture}

@@ -1,0 +1,362 @@
+\begin{tikzpicture}[oct/.style={draw, anchor=west, regular polygon,thick, regular polygon sides=8, outer sep=0,blue!70!black},dot/.style={circle,inner sep=2pt,fill},my star/.append style={star, draw, star points=5,inner sep=0, star point ratio=2}]
+
+\node[oct, minimum width=4cm] (Ocentral) at (0,0) {};
+
+\foreach \x [count=\i] in {0,45,...,315} {
+\node (O\i) at ([shift=({\x+22.5:2.5 cm})]Ocentral.center) {};
+
+}
+\draw[thick,-](Ocentral.corner 8) -- (O1);
+\foreach \x [count=\i,evaluate=\x as \y using { int(\x-1)}] in {2,3,...,8} {
+	\ifnum \x=2
+	\else
+		\draw[thick,-](Ocentral.corner \y) -- (O\x);
+	\fi
+}
+
+
+\node[oct, minimum width=4cm,rotate=45] (OPcentral) at ([shift=({75:5 cm})]Ocentral.center) {};
+\foreach \x [count=\i] in {0,45,...,315} {
+	\node (OP\i) at ([shift=({\x+68.5:2.5 cm})]OPcentral.center) {};
+\draw[thick,-](Ocentral.corner 1) -- (OPcentral.corner 4);
+	%\node[oct, minimum width=1cm,rotate=\x] (O\i) at ([shift=({\x+22.5:3 cm})]Ocentral.center) {};
+}
+	\draw[thick,-](OPcentral.corner 8) -- (OP1);
+\foreach \x [count=\i,evaluate=\x as \y using { int(\x-1)}] in {2,3,...,8} {
+	\ifnum \x=5
+	\else
+	\draw[thick,-](OPcentral.corner \y) -- (OP\x);
+	\fi
+}
+
+
+\node[right, outer sep=3] at (Ocentral.corner 1) {$v_4$};
+\node[dot] at (Ocentral.corner 1) {};
+
+\node (v4prime) at ([shift=({65:0.7 cm})]OPcentral.corner 8) {$p'$};
+\node[dot] at (OPcentral.corner 8) {};
+
+\draw [dashed, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({-80:3 cm})]OPcentral.center)
+	([shift=({-77:1.85 cm})]OPcentral.center)
+	([shift=({-57:1.85 cm})]OPcentral.center)
+	([shift=({-52.5:3 cm})]OPcentral.center)
+} ;
+\node[color=green!50!black,font=\Large] at ([shift=({208:3.1 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({204.5:3.2 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({200.5:3.1 cm})]OPcentral.center) {$.$};
+\node[font=\small] at ([shift=({-65:3.5 cm})]OPcentral.center) {$P'_1$};
+\begin{scope}[rotate=45]
+\draw [dashed, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({-80:3 cm})]OPcentral.center)
+	([shift=({-77:1.85 cm})]OPcentral.center)
+	([shift=({-57:1.85 cm})]OPcentral.center)
+	([shift=({-52.5:3 cm})]OPcentral.center)
+} ;
+\node[font=\small] at ([shift=({-65:3.5 cm})]OPcentral.center) {$P'_2$};
+%% No dots here
+\end{scope}
+\begin{scope}[rotate=90]
+\draw [dashed, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({-80:3 cm})]OPcentral.center)
+	([shift=({-77:1.85 cm})]OPcentral.center)
+	([shift=({-57:1.85 cm})]OPcentral.center)
+	([shift=({-52.5:3 cm})]OPcentral.center)
+} ;
+\node[color=green!50!black,font=\Large] at ([shift=({206:3.1 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({202.5:3.2 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({198.5:3.1 cm})]OPcentral.center) {$.$};
+
+\node[font=\small] at ([shift=({-65:3.5 cm})]OPcentral.center) {$P'_3$};
+\node[color=green!50!black,font=\Large] at ([shift=({206:3.1 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({202.5:3.2 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({198.5:3.1 cm})]OPcentral.center) {$.$};
+\end{scope}
+\begin{scope}[rotate=135]
+\draw [dashed, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({-80:3 cm})]OPcentral.center)
+	([shift=({-77:1.85 cm})]OPcentral.center)
+	([shift=({-57:1.85 cm})]OPcentral.center)
+	([shift=({-52.5:3 cm})]OPcentral.center)
+} ;
+\node[font=\small] at ([shift=({-65:3.5 cm})]OPcentral.center) {$P'_4$};
+\node[color=green!50!black,font=\Large] at ([shift=({206:3.1 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({202.5:3.2 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({198.5:3.1 cm})]OPcentral.center) {$.$};
+
+\end{scope}
+\begin{scope}[rotate=180]
+\draw [dashed,very thin, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({-80:3 cm})]OPcentral.center)
+	([shift=({-77:1.85 cm})]OPcentral.center)
+	([shift=({-57:1.85 cm})]OPcentral.center)
+	([shift=({-52.5:3 cm})]OPcentral.center)
+} ;
+\node[font=\small] at ([shift=({-65:3.5 cm})]OPcentral.center) {$P'_5$};
+\node[color=green!50!black,font=\Large] at ([shift=({206:3.1 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({202.5:3.2 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({198.5:3.1 cm})]OPcentral.center) {$.$};
+\end{scope}
+\begin{scope}[rotate=225]
+\draw [dashed,very thin, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({-80:3 cm})]OPcentral.center)
+	([shift=({-77:1.85 cm})]OPcentral.center)
+	([shift=({-57:1.85 cm})]OPcentral.center)
+	([shift=({-52.5:3 cm})]OPcentral.center)
+} ;
+\node[font=\small] at ([shift=({-65:3.5 cm})]OPcentral.center) {$P'_6$};
+\node[color=green!50!black,font=\Large] at ([shift=({206:3.1 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({202.5:3.2 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({198.5:3.1 cm})]OPcentral.center) {$.$};
+\end{scope}
+\begin{scope}[rotate=270]
+\draw [dashed,very thin, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({-80:3 cm})]OPcentral.center)
+	([shift=({-77:1.85 cm})]OPcentral.center)
+	([shift=({-57:1.85 cm})]OPcentral.center)
+	([shift=({-52.5:3 cm})]OPcentral.center)
+} ;
+\node[font=\small] at ([shift=({-65:3.6 cm})]OPcentral.center) {$P'_7$};
+\node[color=green!50!black,font=\Large] at ([shift=({206:3.1 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({202.5:3.2 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({198.5:3.1 cm})]OPcentral.center) {$.$};
+\end{scope}
+
+\node[color=green!50!black,font=\Large] at ([shift=({154:3.1 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({158.5:3.2 cm})]OPcentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({162.5:3.1 cm})]OPcentral.center) {$.$};
+
+
+\node[font=\small] at ([shift=({-20:0.5 cm})]Ocentral.corner 7) {$p$};
+\node[dot] at (Ocentral.corner 7) {};
+
+\node[font=\small] at ([shift=({-35:0.5 cm})]Ocentral.corner 5) {$v_0$};
+\node[dot] at (Ocentral.corner 5) {};
+\node[font=\small] at ([shift=({-40:0.5 cm})]OPcentral.corner 4) {$v'_0$};
+\node[dot] at (OPcentral.corner 4) {};
+
+
+
+\node[color=green!50!black,font=\Large] at ([shift=({-118.5:4.2 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({-118.5:4.35 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({-118.5:4.5 cm})]Ocentral.center) {$.$};
+%%%%%%%% Optimal path
+
+\begin{scope}[ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.85 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=green!50!black]
+	([shift=({-118.5:4 cm})]Ocentral.center) --
+([shift=({-120:1.7 cm})]Ocentral.center) --
+([shift=({-152:1.7 cm})]Ocentral.center) --
+([shift=({-152:3 cm})]Ocentral.center)
+;
+\node[color=green!50!black,font=\Large] at ([shift=({206:3.1 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({202.5:3.2 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({198.5:3.1 cm})]Ocentral.center) {$.$};
+\end{scope}
+
+\begin{scope}[rotate=-45,ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.85 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=green!50!black]
+([shift=({-118.5:3 cm})]Ocentral.center) --
+([shift=({-120:1.7 cm})]Ocentral.center) --
+([shift=({-152:1.7 cm})]Ocentral.center) --
+([shift=({-152:3 cm})]Ocentral.center)
+;
+\node[color=green!50!black,font=\Large] at ([shift=({206:3.1 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({202.5:3.2 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({198.5:3.1 cm})]Ocentral.center) {$.$};
+\end{scope}
+
+
+\begin{scope}[rotate=-90,ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.85 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=green!50!black]
+([shift=({-118.5:3 cm})]Ocentral.center) --
+([shift=({-120:1.7 cm})]Ocentral.center) --
+([shift=({-152:1.7 cm})]Ocentral.center) --
+([shift=({-152:3 cm})]Ocentral.center)
+;
+\node[color=green!50!black,font=\Large] at ([shift=({206:3.1 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({202.5:3.2 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({198.5:3.1 cm})]Ocentral.center) {$.$};
+\end{scope}
+\begin{scope}[rotate=-135,ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.85 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=green!50!black]
+([shift=({-118.5:3 cm})]Ocentral.center) --
+([shift=({-120:1.7 cm})]Ocentral.center) --
+([shift=({-155:1.7 cm})]Ocentral.center) --
+([shift=({-196:1.7 cm})]Ocentral.center) --
+([shift=({-196:3 cm})]Ocentral.center)
+;
+\end{scope}
+\begin{scope}[rotate=-225,ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.85 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=green!50!black]
+([shift=({-118.5:3 cm})]Ocentral.center) --
+([shift=({-120:1.7 cm})]Ocentral.center) --
+([shift=({-152:1.7 cm})]Ocentral.center) --
+([shift=({-152:3 cm})]Ocentral.center)
+;
+\node[color=green!50!black,font=\Large] at ([shift=({206:3.1 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({202.5:3.2 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({198.5:3.1 cm})]Ocentral.center) {$.$};
+\end{scope}
+\begin{scope}[rotate=-270,ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.9 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=green!50!black]
+([shift=({-118.5:3 cm})]Ocentral.center) --
+([shift=({-120:1.7 cm})]Ocentral.center) --
+([shift=({-152:1.7 cm})]Ocentral.center) --
+([shift=({-152:3 cm})]Ocentral.center)
+;
+\node[color=green!50!black,font=\Large] at ([shift=({206:3.1 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({202.5:3.2 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({198.5:3.1 cm})]Ocentral.center) {$.$};
+\end{scope}
+\begin{scope}[rotate=-270,ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.9 with {\arrow{>}}}
+] 
+
+\draw[postaction={decorate},color=green!50!black]
+([shift=({-165:3 cm})]Ocentral.center) --
+([shift=({-165:1.2 cm})]Ocentral.center) --
+([shift=({-110:1.2 cm})]Ocentral.center) --
+([shift=({-70:1.2 cm})]Ocentral.center) --
+([shift=({-8:1.2 cm})]Ocentral.center) --
+([shift=({-210:1.7 cm})]OPcentral.center) --
+([shift=({-240:1.7 cm})]OPcentral.center) --
+([shift=({-238:3 cm})]OPcentral.center)
+;
+\end{scope}
+
+
+
+\node[color=green!50!black,font=\Large] at ([shift=({18:3.1 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({22.5:3.2 cm})]Ocentral.center) {$.$};
+\node[color=green!50!black,font=\Large] at ([shift=({26.5:3.1 cm})]Ocentral.center) {$.$};
+
+%%%%%%%%%%%%%%%% Passing through the second polygon
+\begin{scope}[rotate=-45,ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.9 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=green!50!black]
+([shift=({-118.5:3 cm})]OPcentral.center) --
+([shift=({-120:1.7 cm})]OPcentral.center) --
+([shift=({-152:1.7 cm})]OPcentral.center) --
+([shift=({-150:3 cm})]OPcentral.center)
+;
+\end{scope}
+
+\begin{scope}[rotate=-90,ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.9 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=green!50!black]
+([shift=({-118.5:3 cm})]OPcentral.center) --
+([shift=({-120:1.7 cm})]OPcentral.center) --
+([shift=({-152:1.7 cm})]OPcentral.center) --
+([shift=({-150:3 cm})]OPcentral.center)
+;
+\end{scope}
+\begin{scope}[rotate=-135,ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.9 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=green!50!black]
+([shift=({-118.5:3 cm})]OPcentral.center) --
+([shift=({-120:1.7 cm})]OPcentral.center) --
+([shift=({-152:1.7 cm})]OPcentral.center) --
+([shift=({-150:3 cm})]OPcentral.center)
+;
+\end{scope}
+\begin{scope}[rotate=-180,ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.9 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=green!50!black]
+([shift=({-118.5:3 cm})]OPcentral.center) --
+([shift=({-120:1.7 cm})]OPcentral.center) --
+([shift=({-152:1.7 cm})]OPcentral.center) --
+([shift=({-150:3 cm})]OPcentral.center)
+;
+\end{scope}
+\begin{scope}[rotate=-225,ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.9 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=green!50!black]
+([shift=({-118.5:3 cm})]OPcentral.center) --
+([shift=({-120:1.7 cm})]OPcentral.center) --
+([shift=({-152:1.7 cm})]OPcentral.center) --
+([shift=({-150:3 cm})]OPcentral.center)
+;
+\end{scope}
+\begin{scope}[rotate=-270,ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.9 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=green!50!black]
+([shift=({-118.5:3 cm})]OPcentral.center) --
+([shift=({-120:1.7 cm})]OPcentral.center) --
+([shift=({-152:1.7 cm})]OPcentral.center) --
+([shift=({-148:3 cm})]OPcentral.center) 
+;
+\end{scope}
+\begin{scope}[rotate=-270,ultra thick,decoration={
+	markings,
+	mark=at position 0.2 with {\arrow{>}},
+	mark=at position 0.55 with {\arrow{>}},
+	mark=at position 0.9 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=green!50!black]
+([shift=({-165:3 cm})]OPcentral.center) --
+([shift=({-165:1 cm})]OPcentral.center) --
+([shift=({-120:1 cm})]OPcentral.center) -- 
+([shift=({-70:1 cm})]OPcentral.center) --
+([shift=({-30:1 cm})]OPcentral.center) --
+(OPcentral.corner 8)
+;
+\end{scope}
+\end{tikzpicture}

@@ -1,0 +1,36 @@
+\begin{tikzpicture}
+[
+my star/.append style={star, draw, star points=5,minimum size=3mm,inner sep=0, star point ratio=2}
+]
+\draw[step=0.5cm,black,very thin,opacity=0.3] (0,0) grid (10,10);
+\draw[thick,->](0,5) -- (10,5);
+\draw[thick,->](5,0) -- (5,10);
+\node[below right, inner sep=7pt] at (8.5,5.5) {$n$};
+\node[below left, inner sep=7pt] at (1.5,5.5) {$-n$};
+\node[above left, inner sep=7pt] at (5.5,8.5) {$n$};
+\node[below left, inner sep=7pt] at (5.5,1.5) {$-n$};
+\begin{scope}[ultra thick,decoration={
+	markings,
+	mark=at position 0.05 with {\arrow{>}},
+	mark=at position 0.15 with {\arrow{>}},
+	mark=at position 0.26 with {\arrow{>}},
+	mark=at position 0.37 with {\arrow{>}},
+	mark=at position 0.46 with {\arrow{>}},
+	mark=at position 0.57 with {\arrow{>}},
+	mark=at position 0.665 with {\arrow{>}},
+	mark=at position 0.76 with {\arrow{>}},
+	mark=at position 0.84 with {\arrow{>}},
+	mark=at position 0.94 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=blue!50!black] (5,5) -- (5,8.5) -- (8.5,8.5) -- (8.5,1.5) -- (1.5,1.5) -- (1.5, 8.5) -- (4.5,8.5) -- (4.5,8) -- (2,8) -- (2,2) -- (8,2) -- (8,8) -- (5.5,8) -- (5.5,7.5) 
+-- (7.5,7.5) -- (7.5,2.5) -- (2.5,2.5) -- (2.5,7.5) -- (4.5,7.5) -- (4.5,7) --  (3,7)  -- (3,3) 
+-- (7,3) -- (7,7) -- (6.5,7) -- (6.5,6.5) -- (6.5,6.5) -- (6.5,3.5) -- (3.5,3.5) -- (3.5,6.5) 
+-- (4.5,6.5) -- (4.5,6) -- (4,6) -- (4,5.5) -- (4.5,5.5) -- (4.5,5) -- (4,5) -- (4,4) -- (6,4) -- (6,7)
+-- (5.5,7) -- (5.5,4.5) -- (4.5,4.5)  ;
+\fill (5,5) circle[radius=3pt];
+\fill (4.5,4.5) circle[radius=3pt];
+%\draw[postaction={decorate},color=blue!50!black] (5,4.9) -- (7.8,4.9) -- (7.8,2.2) -- (2.2,2.2) --
+%(2.2,7.8) -- (7.8,7.8) -- (7.8,5.5) -- (7,5.5) -- (7,6) ;
+
+\end{scope}
+\end{tikzpicture}

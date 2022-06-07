@@ -1,0 +1,63 @@
+\begin{tikzpicture}[dot/.style={circle,inner sep=2pt,fill}]
+\node (gamma) at (-2,0) {$\Gamma$};
+\node[dot] (center) at (0,0) {};
+\node[dot] (0) at ([shift=({45:1 cm})]center) {};
+\node[dot] (00) at ([shift=({45:1 cm})]0) {};
+\node[dot] (1) at ([shift=({135:1 cm})]center) {};
+\node[dot] (11) at ([shift=({135:1 cm})]1) {};
+\node[dot] (2) at ([shift=({-90:1 cm})]center) {};
+\node[dot] (22) at ([shift=({-90:1 cm})]2) {};
+
+\draw[thick,-] (center) -- (0);
+\draw[thick,-] (center) -- (1);
+\draw[thick,-] (center) -- (2);
+\draw[thick,-] (0) -- (00);
+\draw[thick,-] (1) -- (11);
+\draw[thick,-] (2) -- (22);
+
+
+\node (gammaC) at (4,0) {$\Gamma^2$};
+\node[dot] (centerC) at (6,0) {};
+\node[dot] (0C) at ([shift=({45:1 cm})]centerC) {};
+\node[dot] (00C) at ([shift=({45:1 cm})]0C) {};
+\node[dot] (1C) at ([shift=({135:1 cm})]centerC) {};
+\node[dot] (11C) at ([shift=({135:1 cm})]1C) {};
+\node[dot] (2C) at ([shift=({-90:1 cm})]centerC) {};
+\node[dot] (22C) at ([shift=({-90:1 cm})]2C) {};
+
+\draw[thick,-] (centerC) -- (0C);
+\draw[thick,-] (centerC) -- (1C);
+\draw[thick,-] (centerC) -- (2C);
+\draw[thick,-] (0C) -- (00C);
+\draw[thick,-] (1C) -- (11C);
+\draw[thick,-] (2C) -- (22C);
+\draw[thick,-] (1C) -- (2C) -- (0C) -- (1C);
+\draw[thick,-] (11C) to[out=10,in=100] (centerC);
+\draw[thick,-] (00C) to[out=-80,in=-10] (centerC);
+\draw[thick,-] (22C) to[out=170,in=190] (centerC);
+%
+%\foreach \x [evaluate=\x as \y using {\x+0.5}] in {0,0.5,1,...,10.5}{
+%	\node[dot] (\x) at (\x,0) {};
+%}
+%\node[dot] (11) at (11,0) {};
+%
+%\foreach \x [evaluate=\x as \y using {\x+0.5}] in {0,0.5,1,...,10.5}{
+%	\draw[thick,-](\x) -- (\y);
+%}
+%\begin{scope}[ultra thick,decoration={
+%	markings,
+%	mark=at position 0.05 with {\arrow{>}},
+%	mark=at position 0.15 with {\arrow{>}},
+%	mark=at position 0.26 with {\arrow{>}},
+%	mark=at position 0.37 with {\arrow{>}},
+%	mark=at position 0.46 with {\arrow{>}},
+%	mark=at position 0.57 with {\arrow{>}},
+%	mark=at position 0.665 with {\arrow{>}},
+%	mark=at position 0.76 with {\arrow{>}},
+%	mark=at position 0.84 with {\arrow{>}},
+%	mark=at position 0.94 with {\arrow{>}}}
+%] 
+%\draw[postaction={decorate},color=blue!50!black] (5.5,0) -- (11,0) -- (11,-0.5) -- (0,-0.5) -- (0,0) -- (5.5,0);
+%\draw[ultra thick,color=blue!50!black] (5.5,0.2) -- (5.5,-0.2);  
+%\end{scope}
+\end{tikzpicture}

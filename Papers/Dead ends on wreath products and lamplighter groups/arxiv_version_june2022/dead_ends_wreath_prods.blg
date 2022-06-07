@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: dead_ends_wreath_prods.aux
+The style file: plain.bst
+Database file #1: biblio_wreath_prods.bib
+You've used 54 entries,
+            2118 wiz_defined-function locations,
+            877 strings with 12265 characters,
+and the built_in function-call counts, 17163 in all, are:
+= -- 1781
+> -- 617
+< -- 5
++ -- 255
+- -- 192
+* -- 1231
+:= -- 2851
+add.period$ -- 168
+call.type$ -- 54
+change.case$ -- 253
+chr.to.int$ -- 0
+cite$ -- 54
+duplicate$ -- 623
+empty$ -- 1443
+format.name$ -- 192
+if$ -- 3548
+int.to.chr$ -- 0
+int.to.str$ -- 54
+missing$ -- 57
+newline$ -- 273
+num.names$ -- 109
+pop$ -- 200
+preamble$ -- 1
+purify$ -- 204
+quote$ -- 0
+skip$ -- 417
+stack$ -- 0
+substring$ -- 1443
+swap$ -- 79
+text.length$ -- 5
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 204
+warning$ -- 0
+while$ -- 198
+width$ -- 56
+write$ -- 596

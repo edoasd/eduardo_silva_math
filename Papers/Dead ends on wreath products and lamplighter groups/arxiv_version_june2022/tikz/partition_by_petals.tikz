@@ -1,0 +1,200 @@
+\begin{tikzpicture}[oct/.style={draw, anchor=west, regular polygon,thick, regular polygon sides=8, outer sep=0,blue!70!black},dot/.style={circle,inner sep=2pt,fill},my star/.append style={star, draw, star points=5,inner sep=0, star point ratio=2}]
+%%%%%This draws an octagon
+%\node (center) at (0,0) {};
+%\foreach \x [count=\i] in {0,45,...,315} {
+%\node[dot] (\i) at ([shift=({\x:1.5 cm})]center) {};
+%}
+%%%%%%%%%%%%%%%%%%%
+%%This an octagon with the implemented function for nodes
+%\begin{scope}[nodes={draw, anchor=west, regular polygon,thick, regular polygon sides=8, minimum width=3cm, outer sep=0,blue!70!black}]
+%\node (A) {};
+%\node[shift=(0:4cm) of A.corner 1] (B) {};
+%\draw[green!50!black,thick] (A.center) -- (B);
+%\end{scope}
+%%%%%%%%%
+\node[oct, minimum width=2.5cm] (Ocentral) at (0,0) {};
+
+\foreach \x [count=\i] in {0,45,...,315} {
+\node[oct, minimum width=1cm,rotate=\x] (O\i) at ([shift=({\x+22.5:3 cm})]Ocentral.center) {};
+}
+\draw[thick,-](Ocentral.corner 8) -- (O1.corner 4);
+\foreach \x [count=\i,evaluate=\x as \y using { int(\x-1)}] in {2,3,...,8} {
+		\draw[thick,-](Ocentral.corner \y) -- (O\x.corner 4);
+}
+\foreach \x [count=\i] in {1,2,3,...,8} {
+	\foreach \a [count=\j,,evaluate=\a as \y using { int(\j+1))}] in {0,45,...,315} {
+    \node[] (O\x O\j) at ([shift=({\a+22.5:1 cm})]O\x.center) {};
+	}
+}
+%\foreach \x [count=\i] in {1,2,3,...,8} {
+%	\foreach \a [count=\j,,evaluate=\a as \y using { int(\j+1))}] in {0,45,...,270} {
+%		\draw[thick,-](O\x.corner \j) -- (O\x O\y);
+%	}
+%}
+\foreach \a [count=\j] in {2,3,4,5,6,7,8,1}{
+	\ifnum \j=4
+	\else
+	\draw[thick,-](O1.corner \j) -- (O1O\a);
+\fi}
+\foreach \a [count=\j] in {3,4,5,6,7,8,1,2}{
+	\ifnum \j=4
+	\else
+	\draw[thick,-](O2.corner \j) -- (O2O\a);
+	\fi}
+\foreach \a [count=\j] in {4,5,6,7,8,1,2,3}{
+	\ifnum \j=4
+	\else
+	\draw[thick,-](O3.corner \j) -- (O3O\a);
+	\fi}
+\foreach \a [count=\j] in {5,6,7,8,1,2,3,4}{
+	\ifnum \j=4
+	\else
+	\draw[thick,-](O4.corner \j) -- (O4O\a);
+	\fi}
+\foreach \a [count=\j] in {6,7,8,1,2,3,4,5}{
+	\ifnum \j=4
+	\else
+	\draw[thick,-](O5.corner \j) -- (O5O\a);
+	\fi}
+\foreach \a [count=\j] in {7,8,1,2,3,4,5,6}{
+	\ifnum \j=4
+	\else
+	\draw[thick,-](O6.corner \j) -- (O6O\a);
+	\fi}
+\foreach \a [count=\j] in {8,1,2,3,4,5,6,7}{
+	\ifnum \j=4
+	\else
+	\draw[thick,-](O7.corner \j) -- (O7O\a);
+	\fi}
+\foreach \a [count=\j] in {1,2,3,4,5,6,7,8}{
+	\ifnum \j=4
+	\else
+	\draw[thick,-](O8.corner \j) -- (O8O\a);
+	\fi}
+
+%%%%Try to draw the petals
+%\draw [dashed, line width=1pt,bend left=110] plot [smooth, tension=2] coordinates{(1.4,-4) (1.2,-0.7) (3.1,-3.2)} ;
+%%%%%
+\draw [dashed, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({5:2 cm})]O1.center) 
+	([shift=({-5:1.3 cm})]O1.center) 
+	([shift=({-50:1.2 cm})]O1.center)
+	([shift=({-130:1.3 cm})]O1.center) 
+	([shift=({-156.5:2.3 cm})]O1.center) %%%
+	([shift=({-166.5:2.3 cm})]O1.center)   %%%
+	([shift=({-190:1.3 cm})]O1.center)
+	([shift=({90:1.2 cm})]O1.center)
+	([shift=({35:1.3 cm})]O1.center)
+	([shift=({30:2 cm})]O1.center)
+} ;
+\node at ([shift=({18:2.3 cm})]O1.center) {$P_3$};
+\begin{scope}[rotate=45]
+\draw [dashed, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({5:2 cm})]O2.center) 
+	([shift=({-5:1.3 cm})]O2.center) 
+	([shift=({-50:1.2 cm})]O2.center)
+	([shift=({-130:1.3 cm})]O2.center) 
+	([shift=({-156.5:2.3 cm})]O2.center) %%%
+	([shift=({-166.5:2.3 cm})]O2.center)   %%%
+	([shift=({-190:1.3 cm})]O2.center)
+	([shift=({90:1.2 cm})]O2.center)
+	([shift=({35:1.3 cm})]O2.center)
+	([shift=({30:2 cm})]O2.center)
+} ;
+\node at ([shift=({18:2.3 cm})]O2.center) {$P_4$};
+\end{scope}
+\begin{scope}[rotate=90]
+\draw [dashed, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({5:2 cm})]O3.center) 
+	([shift=({-5:1.3 cm})]O3.center) 
+	([shift=({-50:1.2 cm})]O3.center)
+	([shift=({-130:1.3 cm})]O3.center) 
+	([shift=({-156.5:2.3 cm})]O3.center) %%%
+	([shift=({-166.5:2.3 cm})]O3.center)   %%%
+	([shift=({-190:1.3 cm})]O3.center)
+	([shift=({90:1.2 cm})]O3.center)
+	([shift=({35:1.3 cm})]O3.center)
+	([shift=({30:2 cm})]O3.center)
+} ;
+\node at ([shift=({18:2.3 cm})]O3.center) {$P_5$};
+\end{scope}
+\begin{scope}[rotate=135]
+\draw [dashed, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({5:2 cm})]O4.center) 
+	([shift=({-5:1.3 cm})]O4.center) 
+	([shift=({-50:1.2 cm})]O4.center)
+	([shift=({-130:1.3 cm})]O4.center) 
+	([shift=({-156.5:2.3 cm})]O4.center) %%%
+	([shift=({-166.5:2.3 cm})]O4.center)   %%%
+	([shift=({-190:1.3 cm})]O4.center)
+	([shift=({90:1.2 cm})]O4.center)
+	([shift=({35:1.3 cm})]O4.center)
+	([shift=({30:2 cm})]O4.center)
+} ;
+\node at ([shift=({18:2.3 cm})]O4.center) {$P_6$};
+\end{scope}
+\begin{scope}[rotate=180]
+\draw [dashed, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({5:2 cm})]O5.center) 
+	([shift=({-5:1.3 cm})]O5.center) 
+	([shift=({-50:1.2 cm})]O5.center)
+	([shift=({-130:1.3 cm})]O5.center) 
+	([shift=({-156.5:2.3 cm})]O5.center) %%%
+	([shift=({-166.5:2.3 cm})]O5.center)   %%%
+	([shift=({-190:1.3 cm})]O5.center)
+	([shift=({90:1.2 cm})]O5.center)
+	([shift=({35:1.3 cm})]O5.center)
+	([shift=({30:2 cm})]O5.center)
+} ;
+\node at ([shift=({18:2.3 cm})]O5.center) {$P_7$};
+\end{scope}
+\begin{scope}[rotate=225]
+\draw [dashed, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({5:2 cm})]O6.center) 
+	([shift=({-5:1.3 cm})]O6.center) 
+	([shift=({-50:1.2 cm})]O6.center)
+	([shift=({-130:1.3 cm})]O6.center) 
+	([shift=({-156.5:2.3 cm})]O6.center) %%%
+	([shift=({-166.5:2.3 cm})]O6.center)   %%%
+	([shift=({-190:1.3 cm})]O6.center)
+	([shift=({90:1.2 cm})]O6.center)
+	([shift=({35:1.3 cm})]O6.center)
+	([shift=({30:2 cm})]O6.center)
+} ;
+\node at ([shift=({18:2.3 cm})]O6.center) {$P_0$};
+\end{scope}
+\begin{scope}[rotate=270]
+\draw [dashed, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({5:2 cm})]O7.center) 
+	([shift=({-5:1.3 cm})]O7.center) 
+	([shift=({-50:1.2 cm})]O7.center)
+	([shift=({-130:1.3 cm})]O7.center) 
+	([shift=({-156.5:2.3 cm})]O7.center) %%%
+	([shift=({-166.5:2.3 cm})]O7.center)   %%%
+	([shift=({-190:1.3 cm})]O7.center)
+	([shift=({90:1.2 cm})]O7.center)
+	([shift=({35:1.3 cm})]O7.center)
+	([shift=({30:2 cm})]O7.center)
+} ;
+\node at ([shift=({18:2.3 cm})]O7.center) {$P_1$};
+\end{scope}
+\begin{scope}[rotate=315]
+\draw [dashed, line width=1pt,bend left=110] plot [smooth, tension=1] coordinates{
+	([shift=({5:2 cm})]O8.center) 
+	([shift=({-5:1.3 cm})]O8.center) 
+	([shift=({-50:1.2 cm})]O8.center)
+	([shift=({-130:1.3 cm})]O8.center) 
+	([shift=({-156.5:2.3 cm})]O8.center) %%%
+	([shift=({-166.5:2.3 cm})]O8.center)   %%%
+	([shift=({-190:1.3 cm})]O8.center)
+	([shift=({90:1.2 cm})]O8.center)
+	([shift=({35:1.3 cm})]O8.center)
+	([shift=({30:2 cm})]O8.center)
+} ;
+\node at ([shift=({18:2.3 cm})]O8.center) {$P_2$};
+\end{scope}
+
+
+
+
+\end{tikzpicture}

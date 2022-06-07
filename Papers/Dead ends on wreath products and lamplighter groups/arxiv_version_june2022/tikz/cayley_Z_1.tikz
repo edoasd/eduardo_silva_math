@@ -1,0 +1,27 @@
+\begin{tikzpicture}[dot/.style={circle,inner sep=2pt,fill}]
+
+\foreach \x [evaluate=\x as \y using {\x+0.5}] in {0,0.5,1,...,10.5}{
+	\node[dot] (\x) at (\x,0) {};
+}
+\node[dot] (11) at (11,0) {};
+
+\foreach \x [evaluate=\x as \y using {\x+0.5}] in {0,0.5,1,...,10.5}{
+	\draw[thick,-](\x) -- (\y);
+}
+\begin{scope}[ultra thick,decoration={
+	markings,
+	mark=at position 0.05 with {\arrow{>}},
+	mark=at position 0.15 with {\arrow{>}},
+	mark=at position 0.26 with {\arrow{>}},
+	mark=at position 0.37 with {\arrow{>}},
+	mark=at position 0.46 with {\arrow{>}},
+	mark=at position 0.57 with {\arrow{>}},
+	mark=at position 0.665 with {\arrow{>}},
+	mark=at position 0.76 with {\arrow{>}},
+	mark=at position 0.84 with {\arrow{>}},
+	mark=at position 0.94 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=blue!50!black] (5.5,0) -- (11,0) -- (11,-0.5) -- (0,-0.5) -- (0,0) -- (5.5,0);
+\draw[ultra thick,color=blue!50!black] (5.5,0.2) -- (5.5,-0.2);  
+\end{scope}
+\end{tikzpicture}

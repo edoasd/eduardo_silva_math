@@ -1,0 +1,56 @@
+\begin{tikzpicture}[cuad_blue/.style={draw, anchor=west, regular polygon,very thick, regular polygon sides=4, outer sep=0,orange!70!black},cuad_green/.style={draw, anchor=west, regular polygon, very thick, regular polygon sides=4, outer sep=0,green!70!black},dot/.style={circle,inner sep=2.5pt,fill},my star/.append style={star, draw, star points=5,inner sep=0, star point ratio=2},scale=0.6, every node/.style={scale=0.6}]
+
+\node[cuad_blue, minimum width=4.5cm] (Ocentralblue) at (0,0) {};
+\node[cuad_green, minimum width=4.5cm] (Ocentralgreen) at ([shift=({213.5:5.7 cm})]Ocentralblue.center) {};
+\node[dot, label={[above left]\Huge$e$}] at (Ocentralblue.corner 3) {};
+%\foreach \x [count=\i] in {0,1,2,3} {
+%\node[cuad_b, minimum width=4cm] (Ocentral) at (0,0) {};
+%}
+\node[cuad_green, minimum width=2cm] (Ogreen11) at ([shift=({142.5:3.78 cm})]Ocentralblue.center) {};
+\node[cuad_green, minimum width=2cm] (Ogreen12) at ([shift=({55.5:2.8 cm})]Ocentralblue.center) {};
+\node[cuad_green, minimum width=2cm] (Ogreen13) at ([shift=({-55.5:2.8 cm})]Ocentralblue.center) {};
+\node[cuad_blue, minimum width=2cm] (Oblue11) at ([shift=({142.5:3.78 cm})]Ocentralgreen.center) {};
+\node[cuad_blue, minimum width=2cm] (Oblue12) at ([shift=({-142.5:3.78 cm})]Ocentralgreen.center) {};
+\node[cuad_blue, minimum width=2cm] (Oblue13) at ([shift=({-55.5:2.8 cm})]Ocentralgreen.center) {};
+
+
+\node[cuad_blue, minimum width=1cm] (Oblue111) at ([shift=({143:1.78 cm})]Ogreen11.center) {};
+\node[cuad_blue, minimum width=1cm] (Oblue112) at ([shift=({-143:1.78 cm})]Ogreen11.center) {};
+\node[cuad_blue, minimum width=1cm] (Oblue112) at ([shift=({56.5:1.28 cm})]Ogreen11.center) {};
+
+\node[cuad_blue, minimum width=1cm] (Oblue121) at ([shift=({143:1.78 cm})]Ogreen12.center) {};
+\node[cuad_blue, minimum width=1cm] (Oblue122) at ([shift=({-56:1.28 cm})]Ogreen12.center) {};
+\node[cuad_blue, minimum width=1cm] (Oblue122) at ([shift=({56.5:1.28 cm})]Ogreen12.center) {};
+
+\node[cuad_blue, minimum width=1cm] (Oblue131) at ([shift=({-56:1.28 cm})]Ogreen13.center) {};
+\node[cuad_blue, minimum width=1cm] (Oblue132) at ([shift=({-143:1.78 cm})]Ogreen13.center) {};
+\node[cuad_blue, minimum width=1cm] (Oblue132) at ([shift=({56.5:1.28 cm})]Ogreen13.center) {};
+
+
+\node[cuad_green, minimum width=1cm] (Ogreen111) at ([shift=({143:1.78 cm})]Oblue11.center) {};
+\node[cuad_green, minimum width=1cm] (Ogreen112) at ([shift=({-143:1.78 cm})]Oblue11.center) {};
+\node[cuad_green, minimum width=1cm] (Ogreen112) at ([shift=({56.5:1.28 cm})]Oblue11.center) {};
+
+\node[cuad_green, minimum width=1cm] (Ogreen121) at ([shift=({143:1.78 cm})]Oblue12.center) {};
+\node[cuad_green, minimum width=1cm] (Ogreen122) at ([shift=({-56:1.28 cm})]Oblue12.center) {};
+\node[cuad_green, minimum width=1cm] (Ogreen122) at ([shift=({-143:1.78 cm})]Oblue12.center) {};
+
+\node[cuad_green, minimum width=1cm] (Ogreen131) at ([shift=({-56:1.28 cm})]Oblue13.center) {};
+\node[cuad_green, minimum width=1cm] (Ogreen132) at ([shift=({-143:1.78 cm})]Oblue13.center) {};
+\node[cuad_green, minimum width=1cm] (Ogreen132) at ([shift=({56.5:1.28 cm})]Oblue13.center) {};
+
+
+
+\node[dot] at (Ocentralblue.corner 1) {};
+\node[dot] at (Ogreen12.corner 1) {};
+\node[dot] at (Oblue122.corner 1) {};
+\node[dot] at (Oblue12.corner 1) {};
+\node[dot] at (Ogreen122.corner 1) {};
+\node[dot] at (Ogreen122.corner 3) {};
+\node[font=\Huge] at ([shift=({45:0.8 cm})]Oblue122.corner 1) {$\cdot$};
+\node[font=\Huge] at ([shift=({45:1 cm})]Oblue122.corner 1) {$\cdot$};
+\node[font=\Huge] at ([shift=({45:1.2 cm})]Oblue122.corner 1) {$\cdot$};
+\node[font=\Huge] at ([shift=({-140:0.8 cm})]Ogreen122.corner 3) {$\cdot$};
+\node[font=\Huge] at ([shift=({-140:1 cm})]Ogreen122.corner 3) {$\cdot$};
+\node[font=\Huge] at ([shift=({-140:1.2 cm})]Ogreen122.corner 3) {$\cdot$};
+\end{tikzpicture}

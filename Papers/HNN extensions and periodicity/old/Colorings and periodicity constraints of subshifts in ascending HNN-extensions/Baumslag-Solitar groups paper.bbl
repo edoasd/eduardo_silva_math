@@ -1,0 +1,74 @@
+\begin{thebibliography}{10}
+
+\bibitem{alon2019mixing}
+Noga Alon, Raimundo Brice{\~n}o, Nishant Chandgotia, Alexander Magazinov, and
+  Yinon Spinka.
+\newblock Mixing properties of colorings of the {$\mathbb{Z}^{d}$} lattice.
+\newblock {\em arXiv preprint arXiv:1903.11685}, 2019.
+
+\bibitem{aubrun_kari_2013}
+Nathalie Aubrun and Jarkko Kari.
+\newblock Tiling problems on baumslag-solitar groups.
+\newblock {\em Electronic Proceedings in Theoretical Computer Science},
+  128:35–46, 2013.
+
+\bibitem{baumslag_solitar_1962}
+Gilbert Baumslag and Donald Solitar.
+\newblock Some two-generator one-relator non-hopfian groups.
+\newblock {\em Bulletin of the American Mathematical Society}, 68(3):199–202,
+  1962.
+
+\bibitem{cyr2016distortion}
+Van Cyr, John Franks, Bryna Kra, and Samuel Petite.
+\newblock Distortion and the automorphism group of a shift.
+\newblock {\em arXiv preprint arXiv:1611.05913}, 2016.
+
+\bibitem{esnay2020weakly}
+Julien Esnay and Etienne Moutot.
+\newblock Weakly and strongly aperiodic subshifts of finite type on
+  baumslag-solitar groups.
+\newblock {\em arXiv preprint arXiv:2004.02534}, 2020.
+
+\bibitem{harpe_2003}
+Pierre de~La Harpe.
+\newblock {\em Topics in geometric group theory}.
+\newblock Univ. of Chicago Press, 2003.
+
+\bibitem{HNN49}
+Graham Higman, B.~H. Neumann, and Hanna Neuman.
+\newblock Embedding theorems for groups.
+\newblock {\em Journal of the London Mathematical Society}, s1-24(4):247--254,
+  1949.
+
+\bibitem{Kerr2016}
+David Kerr and Hanfeng Li.
+\newblock {\em Ergodic Theory}.
+\newblock Springer International Publishing, 2016.
+
+\bibitem{Lieb:1967zz}
+Elliott~H. Lieb.
+\newblock {Residual Entropy of Square Ice}.
+\newblock {\em Phys. Rev.}, 162:162--172, 1967.
+
+\bibitem{lyndon_schupp_1977}
+R.~C. Lyndon and Paul~E. Schupp.
+\newblock {\em Combinatorial group theory}.
+\newblock Springer, 1977.
+
+\bibitem{meskin_1972}
+Stephen Meskin.
+\newblock Nonresidually finite one-relator groups.
+\newblock {\em Transactions of the American Mathematical Society}, 164:105,
+  1972.
+
+\bibitem{peled2018rigidity}
+Ron Peled and Yinon Spinka.
+\newblock Rigidity of proper colorings of {$\mathbb{Z}^{d}$}.
+\newblock {\em arXiv preprint arXiv:1808.03597}, 2018.
+
+\bibitem{ray2020proper}
+Gourab Ray and Yinon Spinka.
+\newblock Proper 3-colorings of {$\mathbb{Z}^{2}$} are bernoulli.
+\newblock {\em arXiv preprint arXiv:2004.00028}, 2020.
+
+\end{thebibliography}

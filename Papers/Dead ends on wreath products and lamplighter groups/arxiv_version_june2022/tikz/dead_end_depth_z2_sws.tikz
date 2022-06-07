@@ -1,0 +1,55 @@
+\begin{tikzpicture}
+    [
+my star/.append style={star, draw, star points=5,minimum size=3mm,inner sep=0, star point ratio=2}
+]
+\draw[step=0.5cm,black,very thin,opacity=0.3] (0,0) grid (10,10);
+\draw[thick,->](0,5) -- (10,5);
+\draw[thick,->](5,0) -- (5,10);
+\node[below right, inner sep=7pt] at (8,5) {$n$};
+\node[below left, inner sep=7pt] at (2,5) {$-n$};
+\node[above left, inner sep=7pt] at (5,8) {$n$};
+\node[below left, inner sep=7pt] at (5,2) {$-n$};
+\foreach \i [evaluate=\i as \j using \i+0.5] in {2,3,4,5,6,7,7.5}{
+\node [my star, fill=yellow!80!black] at (\i,8) {};
+\node [my star, fill=yellow!80!black] at (\j,8) {};
+\node [my star, fill=yellow!80!black] at (\i,2) {};
+\node [my star, fill=yellow!80!black] at (\j,2) {};
+\node [my star, fill=yellow!80!black] at (8,\i) {};
+\node [my star, fill=yellow!80!black] at (8,\j) {};
+\node [my star, fill=yellow!80!black] at (2,\i) {};
+\node [my star, fill=yellow!80!black] at (2,\j) {};
+}
+%\draw (4,0) pic[scale=0.5] {\duck};
+%\duck[santa=red!80!black, scale=0.2];
+%\begin{scope}[very thick,decoration={
+%	markings,
+%	mark=at position 0.5 with {\arrow{>}}}
+%] 
+%\draw[postaction={decorate}] (4.8,5)--(4.8,7.8);
+%\draw[postaction={decorate}] (4.8,7.8)--(2.2,7.8);
+%\draw[postaction={decorate}] (2.2,7.8)--(2.2,2.2);
+%\draw[postaction={decorate}] (2.2,2.2)--(7.8,2.2);
+%\draw[postaction={decorate}] (7.8,2.2)--(7.8,7.8);
+%\draw[postaction={decorate}] (7.8,7.8)--(5.2,7.8);
+%\draw[postaction={decorate}] (5.2,7.8)--(5.2,5.2);
+%\end{scope}
+\begin{scope}[very thick,decoration={
+	markings,
+	mark=at position 0.05 with {\arrow{>}},
+	mark=at position 0.16 with {\arrow{>}},
+	mark=at position 0.26 with {\arrow{>}},
+	mark=at position 0.37 with {\arrow{>}},
+	mark=at position 0.46 with {\arrow{>}},
+	mark=at position 0.57 with {\arrow{>}},
+	mark=at position 0.665 with {\arrow{>}},
+	mark=at position 0.755 with {\arrow{>}},
+	mark=at position 0.854 with {\arrow{>}},
+mark=at position 0.95 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=blue!50!black] (4.9,5)--(4.9,7.8) -- (2.2,7.8) -- (2.2,2.2) -- (7.8,2.2) -- (7.8,7.8) -- (5.5,7.8) -- (5.5,5) -- (5,5);
+\end{scope}
+\draw (4.7,4.8) pic[scale=0.25] {duck};
+%\node [my star, fill=yellow] at (8,8) {};
+%\draw[] (1,1) rectangle (2,2);
+%\fill[red] (2,3) rectangle (4,4);
+\end{tikzpicture}

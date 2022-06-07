@@ -1,0 +1,21 @@
+\begin{tikzpicture}[dot/.style={circle,inner sep=1.5pt,fill}]
+
+\foreach \x in {0,1,...,5}{
+	\foreach \a in {0,1,2}{
+	\node[dot] (\x\a) at (\x,\a) {};
+}}
+\foreach \x [evaluate=\x as \y using {int(\x+1)}] in {0,1,...,4}{
+	\foreach \a [evaluate=\a as \b using {int(\a+1)}] in {0,1}{
+	\draw[thick,-](\x\a) -- (\x\b);
+	\draw[thick,-](\x\a) -- (\y\a);
+}
+}
+\foreach \x [evaluate=\x as \y using {int(\x+1)}] in {0,1,...,4}{
+		\draw[thick,-](\x2) -- (\y2);
+}
+\foreach \a [evaluate=\a as \b using {int(\a+1)}] in {0,1}{
+		\draw[thick,-](5\a) -- (5\b);
+	}
+\node at ([shift={(0.2,0.2)}]10) {$u$};
+\node at ([shift={(0.2,0.2)}]41) {$v$};
+\end{tikzpicture}

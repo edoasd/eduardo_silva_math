@@ -1,0 +1,40 @@
+\begin{tikzpicture}[scale=0.6,dot/.style={circle,inner sep=2pt,fill}]
+
+\foreach \x [evaluate=\x as \y using {\x+1}] in {-24,...,1}{
+	\node[dot] (\x) at (\x,0) {};
+}
+	\node at (0,-1) {$0$};
+%\node[dot] (11) at (11,0) {};
+
+\foreach \x [evaluate=\x as \y using {\x+1}] in {-24,...,0}{
+	\draw[thick,-](\x) -- (\y);
+}
+\foreach \x in {-24,-21,...,1}{
+	\draw[-](\x,0.5) -- (\x,-0.5);
+}
+\begin{scope}[ultra thick,decoration={
+	markings,
+	mark=at position 0.04 with {\arrow{>}},
+	mark=at position 0.16 with {\arrow{>}},
+	mark=at position 0.27 with {\arrow{>}},
+	mark=at position 0.37 with {\arrow{>}},
+	mark=at position 0.465 with {\arrow{>}},
+	mark=at position 0.57 with {\arrow{>}},
+	mark=at position 0.665 with {\arrow{>}},
+	mark=at position 0.76 with {\arrow{>}},
+	mark=at position 0.84 with {\arrow{>}},
+	mark=at position 0.98 with {\arrow{>}}}
+] 
+\draw[postaction={decorate},color=blue!50!black] (0) to[out=120,in=60] (-3) to[out=120,in=60] (-6) to[out=120,in=60] (-9)
+to[out=120,in=60] (-12) to[out=120,in=60] (-15) to[out=120,in=60] (-18) to[out=120,in=60] (-21) to[out=120,in=60] (-24)
+
+ -- (-24,-0.8) -- (-22,-0.8) to[out=-60,in=-120] (-19,-0.8) -- (-20,-0.8) to[out=-60,in=-120] (-17,-0.8)
+-- (-16,-0.8) to[out=-60,in=-120] (-13,-0.8) -- (-14,-0.8) to[out=-60,in=-120] (-11,-0.8) -- (-10,-0.8)
+to[out=-60,in=-120] (-7,-0.8) -- (-8,-0.8)
+to[out=-60,in=-120] (-5,-0.8) -- (-4,-0.8)
+to[out=-60,in=-120] (-1,-0.8) -- (-2,-0.8)
+
+
+to[out=-60,in=-120] (1,-0.8) -- (1);
+\end{scope}
+\end{tikzpicture}

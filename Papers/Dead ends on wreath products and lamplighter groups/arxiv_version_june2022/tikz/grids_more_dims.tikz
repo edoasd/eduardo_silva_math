@@ -1,0 +1,40 @@
+\begin{tikzpicture}[dot/.style={circle,inner sep=1pt,fill}]
+\def\angl{50}
+\def\angldepth{180}
+\def\tot{16}
+
+\node[dot] (A0) at (0,0) {};
+\node[dot] (B0) at ([shift=({90:2.5 cm})]A0) {};
+\node[dot] (C0) at ([shift=({\angl:2.5 cm})]B0) {};
+\node[dot] (D0) at ([shift=({\angl:2.5 cm})]A0) {};
+\node (m1) at ([shift=({\angldepth:\tot*0.66 cm})]A0) {$m_{1}$};
+\node (m2) at ([shift=({\angl:3.1 cm})]A0) {$m_{2}$};
+\node (Z) at ([shift=({90:5 cm})]A0) {$\mathbb{Z}$};
+\draw[thick,black,->] (A0) -- (m1);
+\draw[thick,black,->] (A0) -- (m2);
+\draw[thick,black,->] (A0) -- (Z);
+\draw[thick,blue!70!black] (A0) -- (B0) -- (C0) -- (D0) -- (A0);
+
+\foreach \x in {1,2,...,\tot}{
+	\node[dot] (A\x) at ([shift=({\angldepth:\x*0.6 cm})]A0) {};
+	\node[dot] (B\x) at ([shift=({\angldepth:\x*0.6 cm})]B0) {};
+	\node[dot] (C\x) at ([shift=({\angldepth:\x*0.6 cm})]C0) {};
+	\draw[thick,blue!70!black] (A\x) -- (B\x) -- (C\x);
+}
+\foreach \x[evaluate= \x as \y using {int(\x-1)}] in {1,3,...,\tot}{
+	\draw[thick,blue!70!black] (A\x) -- (A\y);
+		\draw[thick,blue!70!black] (B\x) -- (B\y);
+}
+\foreach \x[evaluate= \x as \y using {int(\x-1)}] in {2,4,...,\tot}{
+	\draw[thick,blue!70!black] (C\x) -- (C\y);
+}
+\foreach \x in {1,2,...,\tot}{
+\node (w) at ([shift=({-90:0.84 cm})]C\x) {};	
+\draw[thick,blue!70!black] (C\x) -- (w);
+}
+
+\foreach \x in {2,4,...,\tot}{
+	\node (w) at ([shift=({\angl:1.085 cm})]A\x) {};	
+	\draw[thick,blue!70!black] (A\x) -- (w);
+}
+\end{tikzpicture}
