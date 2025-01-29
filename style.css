@@ -27,15 +27,16 @@ a {
   z-index:11;
 }
 #header_in {
+font-size: 14pt;
   width: 100%;
-  max-width: 960px;
+  max-width: 1060px;
   height: 90px;
   margin: 0px auto;
   position: relative; 
 }
 #header_in2 {
   width: 100%;
-  max-width: 960px;
+  max-width: 1060px;
   height: 90px;
   margin: 0px auto;
   position: relative; 
@@ -125,9 +126,10 @@ font-family: 'Georgia';
 
 
 #content {   
+font-size: 16pt;
     z-index:7;
-    width: 70%;
-    max-width: 940px;
+    width: 80%;
+    max-width: 1340px;
     margin: auto;
     padding-top: 230px;
     background-color: #f7dcee;
@@ -159,7 +161,7 @@ font-family: 'Georgia';
 #footer
 {
         margin: 0 auto;
-        width:800px;
+        width:1200px;
         padding:0;
 	font-size: .8em;
         border:#ccc 0px solid;
@@ -240,8 +242,8 @@ a.show:focus ~ blockquote {display:inline-block;}
 
   .listita_bonita {
   text-align: left;
-  font-size: 20px;
-  width: 250px;
+  font-size: 22pt;
+  width: 500px;
   color: black;
 }
   .listita_abstract {
