@@ -2,29 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Clickable Email</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surprise Reveal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    #surprise {
+      display: none;
+      margin-top: 20px;
+    }
+    #surprise img {
+      width: 200px;
+      margin: 10px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    #clickText {
+      cursor: pointer;
+      color: #007bff;
+      text-decoration: underline;
+      font-size: 24px;
+    }
+  </style>
 </head>
 <body>
-  <p id="clickable" style="color:blue;cursor:pointer;text-decoration:underline;">
-    Click here to send an email
-  </p>
+
+  <div id="clickText">You reached the end!!!!! Click here to reveal your gift :)</div>
+
+  <div id="surprise">
+    <img src="images/dinosaurcat.jpg" alt="Image 1">
+    <img src="images/fishorcat.jpg" alt="Image 2">
+    <img src="images/sisoy.jpg" alt="Image 3">
+    <audio id="audio" src="song.mp3"></audio>
+  </div>
 
   <script>
-    document.getElementById("clickable").addEventListener("click", async () => {
-      const response = await fetch("http://localhost:3000/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          to: "eduardo.silva@ug.uchile.cl",    // <-- who receives the email
-          subject: "holaaaaaaa",
-          text: "This email was sent by clicking the text on my webpage."
-        })
-      });
+    const clickText = document.getElementById('clickText');
+    const surprise = document.getElementById('surprise');
+    const audio = document.getElementById('audio');
 
-      const result = await response.json();
-      alert(result.success ? "✅ Email sent!" : "❌ Failed: " + result.error);
+    clickText.addEventListener('click', () => {
+      surprise.style.display = 'block';
+      audio.play();
+      clickText.style.display = 'none';
     });
   </script>
+
 </body>
 </html>
 
+<!DOC
