@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clickable Email</title>
+</head>
+<body>
+  <p id="clickable" style="color:blue;cursor:pointer;text-decoration:underline;">
+    Click here to send an email
+  </p>
+
+  <script>
+    document.getElementById("clickable").addEventListener("click", async () => {
+      const response = await fetch("http://localhost:3000/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          to: "eduardo.silva@ug.uchile.cl",    // <-- who receives the email
+          subject: "holaaaaaaa",
+          text: "This email was sent by clicking the text on my webpage."
+        })
+      });
+
+      const result = await response.json();
+      alert(result.success ? "✅ Email sent!" : "❌ Failed: " + result.error);
+    });
+  </script>
+</body>
+</html>
+
