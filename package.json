@@ -1,0 +1,26 @@
+{
+  "name": "public_html",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://edoasd: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@github.com/edoasd/public_html.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edoasd/public_html/issues"
+  },
+  "homepage": "https://github.com/edoasd/public_html#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "nodemailer": "^7.0.6"
+  }
+}
