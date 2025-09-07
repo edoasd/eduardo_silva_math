@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini GeoGuessr — Fixed Location</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #111827; color: #e5e7eb; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+    h1 { margin-bottom: 10px; }
+    .streetview-container { width: 600px; height: 380px; overflow: hidden; border-radius: 12px; margin-bottom: 20px; }
+    .streetview-container iframe { width: 600px; height: 450px; border: 0; transform: translateY(-40px); }
+    input[type=text] { padding: 8px; font-size: 1rem; border-radius: 6px; border: 1px solid #334155; margin-right: 8px; }
+    button { padding: 8px 12px; font-size: 1rem; border-radius: 6px; border: none; background: #60a5fa; color: #111827; cursor: pointer; font-weight: bold; }
+    button:hover { background: #3b82f6; }
+    #result { margin-top: 20px; font-size: 1.25rem; font-weight: bold; text-align: center; }
+    #explain { margin-bottom: 12px; font-size: 1.25rem; text-align: center; }
+    #selfie { display: none; margin-top: 20px; border-radius: 12px; max-width: 80%; }
+  </style>
+</head>
+<body>
+  <h1 style="font-size:30px">Edito Geoguessr</h1>
+  <p id="explain">Look at the Street View below and type the name of the city. Hint: our first selfie location</p>
+
+  <div class="streetview-container">
+    <iframe src="https://www.google.com/maps/embed?pb=!4v1757280105209!6m8!1m7!1sRdiBrcvt93qnl5yDS5M-OQ!2m2!1d51.45022721244063!2d-2.598531052779908!3f275.5655338185061!4f-16.897797339201873!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+
+  <div>
+    <input type="text" id="guess" placeholder="Type your guess here" />
+    <button onclick="checkGuess()">Submit</button>
+  </div>
+
+  <div id="result"></div>
+  <img id="selfie" src="images/selfie.jpg" alt="Selfie" />
+
+  <script>
+    const ANSWER = 'bristol';
+
+    function checkGuess() {
+      const input = document.getElementById('guess').value.trim().toLowerCase();
+      const resultDiv = document.getElementById('result');
+      const selfieImg = document.getElementById('selfie');
+      if(input === ANSWER){
+        resultDiv.textContent = 'Correct! For the (almost final) hint go to my latest Spotify playlist';
+        resultDiv.style.color = '#22c55e';
+        selfieImg.style.display = 'block';
+      } else {
+        resultDiv.textContent = `Sorry, that's not correct. Try again!`;
+        resultDiv.style.color = '#f59e0b';
+        selfieImg.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
+
