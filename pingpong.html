@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Table tANNAs</title>
+  <style>
+    body { font-family: sans-serif; background:#111; color:#eee; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; margin:0; }
+    canvas { background:#000; display:block; box-shadow:0 6px 20px rgba(0,0,0,.6); border:6px solid #222; touch-action:none; }
+    #overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+    .message { background:rgba(0,0,0,.8); padding:20px 28px; border-radius:8px; text-align:center; font-size:24px; color:#9df; }
+    #hud { margin-left:16px; color:#ddd; }
+    .container { display:flex; align-items:flex-start; position:relative; }
+    button { margin-top:10px }
+    #winText { font-size:64px; color:#ff0; margin-top:20px; display:none; font-weight:bold; text-shadow:2px 2px 6px #000; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="game" style="position:relative;">
+      <canvas id="board" width="1200" height="800"></canvas>
+      <div id="overlay"></div>
+    </div>
+    <div id="hud">
+      <h3 style="font-size:60px" >Table tANNAs</h3>
+      <div>Score: <span id="score">0</span></div>
+      <div>Score 5 points to win!!!!!</div>
+      <div style="margin-top:14px">Controls:</div>
+      <div class="small">Arrow Up / Down or W / S — move paddle</div>
+      <div class="small">On mobile: touch to move paddle</div>
+      <button id="restart">Restart</button>
+    </div>
+  </div>
+  <div id="winText">YOU WON!! Sinner would be proud!! Click <a href="geoguessr.html">here for the next challenge </a></div>
+
+<script>
+(() => {
+  const canvas = document.getElementById('board');
+  const ctx = canvas.getContext('2d');
+
+  let paddleHeight = 120, paddleWidth = 16;
+  let playerY = (canvas.height - paddleHeight)/2;
+  let aiY = (canvas.height - paddleHeight)/2;
+
+  let ballSize = 14;
+  let ballX = canvas.width/2 - ballSize/2;
+  let ballY = canvas.height/2 - ballSize/2;
+  let ballSpeedX = 9;
+  let ballSpeedY = 8;
+
+  let score = 0;
+  let gameOver = false;
+  let playerSpeed = 0;
+  let win = false;
+  let hasBeenHitByPlayer = false;
+
+  const bgImage = new Image();
+  bgImage.src = 'images/tennis.png';
+
+  function drawRect(x,y,w,h,color){
+    ctx.fillStyle=color;
+    ctx.fillRect(x,y,w,h);
+  }
+
+  function drawCircle(x,y,r,color){
+    ctx.fillStyle=color;
+    ctx.beginPath();
+    ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function resetBall(toLeft){
+    ballX = canvas.width/2 - ballSize/2;
+    ballY = canvas.height/2 - ballSize/2;
+    ballSpeedX = (toLeft ? -9 : 9);
+    ballSpeedY = (Math.random()>0.5?8:-8);
+    hasBeenHitByPlayer = false;
+  }
+
+  function update(){
+    if(gameOver) return;
+    ballX += ballSpeedX;
+    ballY += ballSpeedY;
+
+    if(ballY <=0 || ballY+ballSize>=canvas.height){
+      ballSpeedY = -ballSpeedY;
+    }
+
+    // AI paddle movement
+    const aiCenter = aiY + paddleHeight/2;
+    if(aiCenter < ballY - 20) aiY += 5;
+    else if(aiCenter > ballY + 20) aiY -= 5;
+
+    playerY += playerSpeed;
+    if(playerY<0) playerY=0;
+    if(playerY+paddleHeight>canvas.height) playerY=canvas.height-paddleHeight;
+
+    // Ball hits player paddle
+    if(ballX <= paddleWidth && ballY+ballSize>playerY && ballY<playerY+paddleHeight){
+      ballSpeedX = -ballSpeedX;
+      hasBeenHitByPlayer = true;
+    }
+
+    // Ball hits AI paddle
+    if(ballX+ballSize >= canvas.width-paddleWidth && ballY+ballSize>aiY && ballY<aiY+paddleHeight){
+      ballSpeedX = -ballSpeedX;
+    }
+
+    if(ballX < 0){
+      if(hasBeenHitByPlayer){
+        resetBall(false);
+      } else {
+        // Keep ball moving right until player hits it first
+        ballSpeedX = Math.abs(ballSpeedX);
+      }
+    }
+
+    if(ballX+ballSize > canvas.width){
+      score++;
+      document.getElementById('score').textContent = score;
+      if(score>=5){
+        winGame();
+      } else {
+        resetBall(true);
+      }
+    }
+
+    draw();
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    if(win){
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      const scale = 0.85;
+      const imgW = canvas.width * scale;
+      const imgH = canvas.height * scale;
+      ctx.drawImage(bgImage, (canvas.width-imgW)/2, (canvas.height-imgH)/2, imgW, imgH);
+      return;
+    }
+
+    drawRect(0,0,canvas.width,canvas.height,"#000");
+    drawRect(0,playerY,paddleWidth,paddleHeight,"#0f0");
+    drawRect(canvas.width-paddleWidth,aiY,paddleWidth,paddleHeight,"#f00");
+    drawCircle(ballX+ballSize/2,ballY+ballSize/2,ballSize/2,"#fff");
+  }
+
+  function winGame(){
+    gameOver = true;
+    win = true;
+    document.getElementById('winText').style.display = 'block';
+  }
+
+  document.addEventListener('keydown', e=>{
+    if(e.key==='w' || e.key==='W' || e.key==='ArrowUp') playerSpeed = -10;
+    if(e.key==='s' || e.key==='S' || e.key==='ArrowDown') playerSpeed = 10;
+  });
+
+  document.addEventListener('keyup', e=>{
+    if(['w','W','s','S','ArrowUp','ArrowDown'].includes(e.key)) playerSpeed = 0;
+  });
+
+  canvas.addEventListener('touchmove', e=>{
+    const touch = e.touches[0];
+    const rect = canvas.getBoundingClientRect();
+    const y = touch.clientY - rect.top;
+    playerY = y - paddleHeight/2;
+    if(playerY<0) playerY=0;
+    if(playerY+paddleHeight>canvas.height) playerY=canvas.height-paddleHeight;
+  });
+
+  document.getElementById('restart').addEventListener('click', ()=>{
+    score=0;
+    document.getElementById('score').textContent = score;
+    playerY = (canvas.height - paddleHeight)/2;
+    aiY = (canvas.height - paddleHeight)/2;
+    resetBall(true);
+    document.getElementById('overlay').innerHTML = '';
+    gameOver = false;
+    win = false;
+    document.getElementById('winText').style.display = 'none';
+  });
+
+  setInterval(update,1000/60);
+})();
+</script>
+</body>
+</html>
+
