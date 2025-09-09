@@ -163,15 +163,22 @@
     if(['w','W','s','S','ArrowUp','ArrowDown'].includes(e.key)) playerSpeed = 0;
   });
 
-  canvas.addEventListener('touchmove', e=>{
-    const touch = e.touches[0];
-    const rect = canvas.getBoundingClientRect();
-    const y = touch.clientY - rect.top;
+// mobile touch control (fixed for overlapping HUD)
+canvas.addEventListener('touchmove', e=>{
+  const touch = e.touches[0];
+  const rect = canvas.getBoundingClientRect();
+
+  // Use relative X position to only respond if touching inside the game box
+  const x = touch.clientX - rect.left;
+  const y = touch.clientY - rect.top;
+
+  if (x >= 0 && x <= canvas.width) {
     playerY = y - paddleHeight/2;
     if(playerY<0) playerY=0;
     if(playerY+paddleHeight>canvas.height) playerY=canvas.height-paddleHeight;
-  });
-
+  }
+});
+	
   document.getElementById('restart').addEventListener('click', ()=>{
     score=0;
     document.getElementById('score').textContent = score;

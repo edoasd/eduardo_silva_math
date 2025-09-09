@@ -212,7 +212,31 @@ function win(){
     });
 
     kb.querySelector('.key').focus();
+ // Enable phone keyboard input
+const hiddenInput = document.getElementById('hiddenInput');
+hiddenInput.focus();
+
+// Ensure input stays focused on mobile
+document.body.addEventListener('click', () => hiddenInput.focus());
+
+// Listen for actual key presses
+hiddenInput.addEventListener('input', (e) => {
+  const val = e.target.value;
+  if (!val) return;
+  const ch = val.slice(-1); // last typed char
+  if (/^[a-zA-Z]$/.test(ch)) handleKey(ch.toLowerCase());
+  e.target.value = ''; // clear input box
+});
+
+// Listen for Enter and Backspace
+hiddenInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') handleKey('Enter');
+  else if (e.key === 'Backspace') handleKey('Backspace');
+});
+
   </script>
+<input id="hiddenInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"
+  style="opacity:0; position:absolute; left:-9999px;" />
 </body>
 </html>
  
