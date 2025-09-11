@@ -6,11 +6,11 @@
   <title>Table tANNAs</title>
   <style>
     body { font-family: sans-serif; background:#111; color:#eee; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; margin:0; overflow:hidden;}
-    canvas { background:#000; display:block; box-shadow:0 6px 20px rgba(0,0,0,.6); border:6px solid #222; touch-action:none; }
+    canvas { background:#000; display:block; box-shadow:0 6px 20px rgba(0,0,0,.6); border:6px solid #222; touch-action:none; max-width:100%; height:auto;}
     #overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; }
     .message { background:rgba(0,0,0,.8); padding:20px 28px; border-radius:8px; text-align:center; font-size:24px; color:#9df; }
     #hud { margin-left:16px; color:#ddd; }
-    .container { display:flex; align-items:flex-start; position:relative; flex-wrap:wrap; justify-content:cneter;}
+    .container { display:flex; align-items:flex-start; position:relative; flex-wrap:wrap; justify-content:center;}
     button { margin-top:10px }
     #winText { font-size:64px; color:#ff0; margin-top:20px; display:none; font-weight:bold; text-shadow:2px 2px 6px #000; }
   </style>
@@ -52,7 +52,6 @@
   let gameOver = false;
   let playerSpeed = 0;
   let win = false;
-  let hasBeenHitByPlayer = false;
 
   const bgImage = new Image();
   bgImage.src = 'images/tennis.png';
@@ -75,7 +74,6 @@
     ballY = canvas.height/2 - ballSize/2;
     ballSpeedX = (toLeft ? -9 : 9);
     ballSpeedY = (Math.random()>0.5?8:-8);
-    hasBeenHitByPlayer = false;
   }
 
   function update(){
@@ -99,7 +97,6 @@
     // Ball hits player paddle
     if(ballX <= paddleWidth && ballY+ballSize>playerY && ballY<playerY+paddleHeight){
       ballSpeedX = -ballSpeedX;
-      hasBeenHitByPlayer = true;
     }
 
     // Ball hits AI paddle
@@ -108,14 +105,8 @@
     }
 
     if(ballX < 0){
-      if(hasBeenHitByPlayer){
-        resetBall(false);
-      } else {
-        // Keep ball moving right until player hits it first
-        ballSpeedX = Math.abs(ballSpeedX);
-      }
+    resetBall(false); 
     }
-
     if(ballX+ballSize > canvas.width){
       score++;
       document.getElementById('score').textContent = score;
