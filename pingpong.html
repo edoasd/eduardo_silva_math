@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Table tANNAs</title>
   <style>
-    body { font-family: sans-serif; background:#111; color:#eee; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; margin:0; overflow:hidden;}
+    body { font-family: sans-serif; background:#111; color:#eee; display:flex; flex-direction:column; align-items:center; justify-content:center; margin:0; overflow:hidden;}
     canvas { background:#000; display:block; box-shadow:0 6px 20px rgba(0,0,0,.6); border:6px solid #222; touch-action:none; max-width:100%; height:auto;}
     #overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; }
     .message { background:rgba(0,0,0,.8); padding:20px 28px; border-radius:8px; text-align:center; font-size:24px; color:#9df; }
@@ -143,7 +143,21 @@
     gameOver = true;
     win = true;
     document.getElementById('winText').style.display = 'block';
+    document.body.style.overflow = 'auto'; // allow scrolling after win
   }
+document.getElementById('restart').addEventListener('click', ()=>{
+  score=0;
+  document.getElementById('score').textContent = score;
+  playerY = (canvas.height - paddleHeight)/2;
+  aiY = (canvas.height - paddleHeight)/2;
+  resetBall(true);
+  document.getElementById('overlay').innerHTML = '';
+  gameOver = false;
+  win = false;
+  document.getElementById('winText').style.display = 'none';
+  document.body.style.overflow = 'hidden'; // lock scrolling again
+});
+
 
   document.addEventListener('keydown', e=>{
     if(e.key==='w' || e.key==='W' || e.key==='ArrowUp') playerSpeed = -10;
@@ -154,22 +168,20 @@
     if(['w','W','s','S','ArrowUp','ArrowDown'].includes(e.key)) playerSpeed = 0;
   });
 
-// mobile touch control (fixed for overlapping HUD)
-canvas.addEventListener('touchmove', e=>{
+// mobile touch control (tap or drag instantly moves paddle, with scaling)
+canvas.addEventListener('touchstart', handleTouch, { passive:false });
+canvas.addEventListener('touchmove', handleTouch, { passive:false });
+
+function handleTouch(e) {
   e.preventDefault();
   const touch = e.touches[0];
   const rect = canvas.getBoundingClientRect();
-
-  // Use relative X position to only respond if touching inside the game box
-  const x = touch.clientX - rect.left;
-  const y = touch.clientY - rect.top;
-
-  if (x >= 0 && x <= canvas.width) {
-    playerY = y - paddleHeight/2;
-    if(playerY<0) playerY=0;
-    if(playerY+paddleHeight>canvas.height) playerY=canvas.height-paddleHeight;
-  }
-});
+  const scaleY = canvas.height / rect.height; // adjust for CSS scaling
+  const y = (touch.clientY - rect.top) * scaleY;
+  playerY = y - paddleHeight/2;
+  if(playerY<0) playerY=0;
+  if(playerY+paddleHeight>canvas.height) playerY=canvas.height-paddleHeight;
+}
 	
   document.getElementById('restart').addEventListener('click', ()=>{
     score=0;
