@@ -27,7 +27,7 @@
     .board{
       background:var(--board); border-radius:18px; padding:18px; box-shadow:0 10px 30px rgba(0,0,0,.35);
     }
-    .row{display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin:8px 0}
+    .row{display:grid; grid-template-columns: repeat(var(--word-len), 1fr); gap:10px; margin:8px 0}
     .cell{
       aspect-ratio:1/1; border:2px solid #334155; border-radius:12px; display:grid; place-items:center; font-weight:800; font-size:28px; text-transform:uppercase; user-select:none; transition:transform .12s ease, background-color .2s ease, border-color .2s ease;
       background:#0b1220;
@@ -56,62 +56,73 @@
   <div class="app" role="application" aria-label="Paroledito Crociate">
     <h1 style="font-size:60px">Paroledito Crociate</h1>
     <p id="explain" style="font-size:30px"> Letters flip <strong>green</strong> when they’re in the right spot, <strong>yellow</strong> when they’re in the word but elsewhere, and stay dark if they’re not in the word.<br></p>
-    <p style="font-size:50px"> The hint is: <b>my favorite object in my appartment</b>.</p>
+    <p style="font-size:50px" id="hint"> The hint is: <b>my favorite currency</b>.</p>
 
     <div class="board" aria-live="polite">
       <div id="grid"></div>
       <div class="status" id="status" aria-live="polite"></div>
       <div class="keyboard" id="kb"></div>
       <div class="bottom-text" id="postSolve">
-<img id="tigerPic" src="images/tigers.png" alt="Tigers" style="display:none; margin-top:20px; max-width:80%; border-radius:12px;" />
+        <img id="tigerPic" src="images/tigers.png" alt="Tigers" style="display:none; margin-top:20px; max-width:80%; border-radius:12px;" />
         <hr style="border:0; border-top:1px solid #334155; margin:12px 0"/>
-	<p style="font-size:50px"><strong>Nice!</strong> Yes!!!!!! Next hint: go <a href="pingpong.html">here</a> .</p>
+        <p style="font-size:50px"><strong>Nice!</strong> Yes!!!!!! Next hint: go <a href="pingpong.html">here</a> .</p>
       </div>
     </div>
   </div>
 
-  <div class="sr-only" aria-hidden="true" id="solutionText">raein</div>
-
   <script>
-    const ANSWER = 'raein';
+    let stage = 1; // 1 = annacash, 2 = raein
+    let ANSWER = 'annacash';
+    let WORD_LEN = ANSWER.length;
     const MAX_TRIES = 6;
-    const WORD_LEN = 5;
 
     const grid = document.getElementById('grid');
     const status = document.getElementById('status');
     const kb = document.getElementById('kb');
     const post = document.getElementById('postSolve');
+    const hint = document.getElementById('hint');
+    const tigerPic = document.getElementById('tigerPic');
 
-    const rows = [];
-    for(let r=0;r<MAX_TRIES;r++){
-      const row = document.createElement('div');
-      row.className = 'row';
-      const cells = [];
-      for(let c=0;c<WORD_LEN;c++){
-        const cell = document.createElement('div');
-        cell.className = 'cell';
-        row.appendChild(cell); cells.push(cell);
+    let rows = [], board = [], curRow = 0, curCol = 0, gameOver = false;
+    const keyEls = {};
+
+    function buildBoard(){
+      grid.innerHTML = '';
+      rows = [];
+      board = Array.from({length:MAX_TRIES}, ()=>Array(WORD_LEN).fill(''));
+      document.documentElement.style.setProperty('--word-len', WORD_LEN);
+      for(let r=0;r<MAX_TRIES;r++){
+        const row = document.createElement('div');
+        row.className = 'row';
+        const cells = [];
+        for(let c=0;c<WORD_LEN;c++){
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          row.appendChild(cell); cells.push(cell);
+        }
+        grid.appendChild(row); rows.push(cells);
       }
-      grid.appendChild(row); rows.push(cells);
+      curRow = 0; curCol = 0; gameOver = false;
     }
 
-    const keys = [
-      [...'qwertyuiop'],
-      [...'asdfghjkl'],
-      ['Enter', ...'zxcvbnm', '⌫']
-    ];
-    keys.forEach((row)=>{
-      row.forEach(k=>{
-        const b = document.createElement('button');
-        b.className = 'key' + (k==='Enter'?' wide': (k==='⌫'?' wide':''));
-        b.textContent = k;
-        b.addEventListener('click', ()=> handleKey(k==='⌫'?'Backspace':k));
-        kb.appendChild(b);
+    function buildKeyboard(){
+      kb.innerHTML = '';
+      const keys = [
+        [...'qwertyuiop'],
+        [...'asdfghjkl'],
+        ['Enter', ...'zxcvbnm', '⌫']
+      ];
+      keys.forEach((row)=>{
+        row.forEach(k=>{
+          const b = document.createElement('button');
+          b.className = 'key' + (k==='Enter'?' wide': (k==='⌫'?' wide':''));
+          b.textContent = k;
+          b.addEventListener('click', ()=> handleKey(k==='⌫'?'Backspace':k));
+          kb.appendChild(b);
+        });
       });
-    });
-
-    let curRow = 0, curCol = 0, board = Array.from({length:MAX_TRIES}, ()=>Array(WORD_LEN).fill(''));
-    const keyEls = {}; [...kb.querySelectorAll('.key')].forEach(k=> keyEls[k.textContent.toLowerCase()] = k);
+      [...kb.querySelectorAll('.key')].forEach(k=> keyEls[k.textContent.toLowerCase()] = k);
+    }
 
     function handleKey(k){
       if(gameOver) return;
@@ -130,15 +141,13 @@
       curCol--; board[curRow][curCol]=''; rows[curRow][curCol].textContent=''; rows[curRow][curCol].classList.remove('filled');
     }
 
-    let gameOver = false;
-
     function submit(){
       if(curCol<WORD_LEN){ flash('Not enough letters.'); return; }
       const guess = board[curRow].join('');
       reveal(guess);
     }
 
-    function flash(msg){ status.textContent = msg; setTimeout(()=>{ status.textContent=''; }, 1000); }
+    function flash(msg){ status.textContent = msg; setTimeout(()=>{ status.textContent=''; }, 1200); }
 
     function reveal(guess){
       const res = score(guess, ANSWER);
@@ -193,12 +202,25 @@
         }
       }
     }
-function win(){
-  gameOver = true;
-  status.textContent = 'You got it!';
-  post.style.display = 'block';
-  tigerPic.style.display = 'block'; 
-}
+
+    function win(){
+      gameOver = true;
+      if(stage===1){
+        flash('That was too easy... try this');
+        stage = 2;
+        ANSWER = 'raein';
+        WORD_LEN = ANSWER.length;
+        setTimeout(()=>{
+          buildBoard();
+          buildKeyboard();
+          hint.innerHTML = 'The hint is: <b>my favorite object in my appartment</b>.';
+        }, 1500);
+      } else {
+        status.textContent = 'You got it!';
+        post.style.display = 'block';
+        tigerPic.style.display = 'block';
+      }
+    }
 
     function lose(){
       gameOver = true;
@@ -212,32 +234,10 @@ function win(){
       }
     });
 
-    kb.querySelector('.key').focus();
- // Enable phone keyboard input
-const hiddenInput = document.getElementById('hiddenInput');
-hiddenInput.focus();
-
-// Ensure input stays focused on mobile
-document.body.addEventListener('click', () => hiddenInput.focus());
-
-// Listen for actual key presses
-hiddenInput.addEventListener('input', (e) => {
-  const val = e.target.value;
-  if (!val) return;
-  const ch = val.slice(-1); // last typed char
-  if (/^[a-zA-Z]$/.test(ch)) handleKey(ch.toLowerCase());
-  e.target.value = ''; // clear input box
-});
-
-// Listen for Enter and Backspace
-hiddenInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') handleKey('Enter');
-  else if (e.key === 'Backspace') handleKey('Backspace');
-});
-
+    // init
+    buildBoard();
+    buildKeyboard();
   </script>
-<input id="hiddenInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"
-  style="opacity:0; position:absolute; left:-9999px;" />
 </body>
 </html>
- 
+
