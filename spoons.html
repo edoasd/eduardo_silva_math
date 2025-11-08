@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPOON</title>
+  <link rel="icon" type="image/png" href="images/spoon.png">
+  <style>
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: white;
+      color: #111;
+      margin: 0;
+      padding: 3rem 8rem;
+      font-size: 1.6rem;
+      line-height: 1.8;
+      position: relative;
+    }
+
+    /* Title */
+    h1 {
+      text-align: center;
+      font-size: 3.6rem;   
+      margin-bottom: 3rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .title-icon-inline {
+      width: 1.2em;
+      height: auto;
+      vertical-align: middle;
+      margin: 0 0.3em;
+    }
+
+    /* Section icons */
+    .section-icon {
+      width: 1em;
+      height: auto;
+      vertical-align: middle;
+      margin-right: 0.5em;
+    }
+
+    /* Top section */
+    .top-section {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 4rem;
+      margin: 0 auto 5rem;
+      max-width: 1500px;
+    }
+
+    .image-container img {
+      width: 600px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .text-container {
+      flex: 1.3;
+      min-width: 350px;
+      max-width: 800px;
+    }
+
+    .description {
+      margin-bottom: 1.8rem;
+      font-size: 1.5rem;
+    }
+
+    .organizers {
+      font-size: 1.4rem;
+      color: #444;
+      margin-bottom: 2rem;
+    }
+
+    .talks {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .talks h2 {
+      font-size: 1.8rem;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.4rem;
+      margin-top: 3rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+
+    li {
+      margin-bottom: 0.9rem;
+    }
+
+    .date {
+      font-weight: bold;
+      color: #0044cc;
+    }
+
+    .speaker {
+      font-style: italic;
+    }
+
+    .past {
+      color: #777;
+    }
+
+    /* GIF columns for full page height */
+    .gif-column {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      z-index: 0;
+    }
+
+    .gif-column img {
+      width: 70px; /* bigger GIFs */
+      height: auto;
+    }
+
+    .gif-left {
+      left: 0;
+    }
+
+    .gif-right {
+      right: 0;
+    }
+
+    @media (max-width: 1000px) {
+      body {
+        padding: 2rem;
+        font-size: 1.2rem;
+      }
+
+      .top-section {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .image-container img {
+        width: 90%;
+        max-width: 600px;
+      }
+
+      .gif-column {
+        display: none; /* hide GIF columns on small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Left GIF column -->
+  <div class="gif-column gif-left">
+    <img src="images/spoon1.gif" alt="spoon1">
+    <img src="images/spoon2.gif" alt="spoon2">
+    <img src="images/spoon1.gif" alt="spoon1">
+    <img src="images/spoon2.gif" alt="spoon2">
+    <img src="images/spoon1.gif" alt="spoon1">
+    <img src="images/spoon2.gif" alt="spoon2">
+    <img src="images/spoon1.gif" alt="spoon1">
+    <img src="images/spoon2.gif" alt="spoon2">
+  </div>
+
+  <!-- Right GIF column -->
+  <div class="gif-column gif-right">
+    <img src="images/spoon2.gif" alt="spoon2">
+    <img src="images/spoon1.gif" alt="spoon1">
+    <img src="images/spoon2.gif" alt="spoon2">
+    <img src="images/spoon1.gif" alt="spoon1">
+    <img src="images/spoon2.gif" alt="spoon2">
+    <img src="images/spoon1.gif" alt="spoon1">
+    <img src="images/spoon2.gif" alt="spoon2">
+    <img src="images/spoon1.gif" alt="spoon1">
+  </div>
+
+  <!-- Title with inline icons -->
+  <h1>
+    <img src="images/spoon.png" alt="logo" class="title-icon-inline">
+    Seminar on Probability: Outlook and Open Notions (SPOON)
+    <img src="images/spoon.png" alt="logo" class="title-icon-inline">
+  </h1>
+
+  <!-- Top section: image + description + organizer -->
+  <div class="top-section">
+    <div class="image-container">
+      <img src="seminar_photo.jpg" alt="Seminar photo or logo">
+    </div>
+    <div class="text-container">
+      <p class="description">
+        A bi-weekly seminar for PhD students and postdocs in probability at the University of Münster. Topics for discussion are works in progress, interesting topics you have come across, or that arxiv paper you are reading and want to understand better. The goal is that we tell each other about our work, exchange and have discussions in a relaxed atmosphere.
+      </p>
+      <div class="organizers">
+        <img src="images/spoon.png" alt="icon" class="section-icon">
+        <strong>Organizer:</strong><br>
+        <a href="https://www.trauthwein.org/">Tara Trauthwein</a>. Contact if you would like to give a talk!
+      </div>
+    </div>
+  </div>
+
+  <!-- Talks section -->
+  <div class="talks">
+    <h2>
+      <img src="images/spoon.png" alt="icon" class="section-icon">
+      Upcoming Talks
+    </h2>
+    <ul>
+      <li>
+        <span class="date">November 27, 2025</span> — 
+        <span class="speaker">Isabel Lammers</span>: <b>Block Spin Ising Model.</b>
+      </li>
+      <li>
+        <span class="date">December 11, 2025</span> — 
+        <span class="speaker">TBA</span>: <b>TBA.</b>
+      </li>
+    </ul>
+
+    <h2>
+      <img src="images/spoon.png" alt="icon" class="section-icon">
+      Past Talks
+    </h2>
+    <ul>
+      <li class="past">
+        <span class="date">?, 2025</span> — 
+        <span class="speaker">?</span>: <i>?</i>
+      </li>
+    </ul>
+  </div>
+
+</body>
+</html>
+
