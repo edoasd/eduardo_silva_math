@@ -14,18 +14,28 @@
     img {
       display: block;
       margin: 20px auto;
-      max-width: 80%;  /* scales down if screen is small */
+      max-width: 80%;
       height: auto;
     }
- h1 {
+    h1 {
       font-size: 100px;
     }
   </style>
 </head>
 
 <body>
-  <h1 >For the final (final) hint look behind the goose in the postcard!</h1>
-  <img src="images/goose.gif" alt="Funny Goose">
+  <h1 id="message">Meow three times at the microphone to see the next hint</h1>
+
+  <div id="content" style="display:none;">
+    <h1>For the final (final) hint look behind the goose in the postcard!</h1>
+    <img src="images/goose.gif" alt="Funny Goose">
+  </div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('message').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+    }, 8500);
+  </script>
 </body>
 </html>
-

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Edito wordle</title>
+  <style>
+    :root{
+      --bg:#111827;
+      --board:#1f2937;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --ok:#22c55e;
+      --maybe:#f59e0b;
+      --no:#374151;
+      --key:#111827;
+      --accent:#60a5fa;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial;
+      background:var(--bg); color:var(--text); display:flex; min-height:100svh; align-items:center; justify-content:center; padding:24px;
+    }
+    .app{width:min(680px, 96vw);}    h1{margin:0 0 8px 0; font-weight:800; letter-spacing:.5px}
+    p{margin:0 0 16px 0; color:var(--muted)}
+    .board{
+      background:var(--board); border-radius:18px; padding:18px; box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    .row{display:grid; grid-template-columns: repeat(var(--word-len), 1fr); gap:10px; margin:8px 0}
+    .cell{
+      aspect-ratio:1/1; border:2px solid #334155; border-radius:12px; display:grid; place-items:center; font-weight:800; font-size:28px; text-transform:uppercase; user-select:none; transition:transform .12s ease, background-color .2s ease, border-color .2s ease;
+      background:#0b1220;
+    }
+    .cell.filled{border-color:#475569}
+    .cell.reveal{animation:flip .6s ease forwards}
+    @keyframes flip{ 50%{ transform:rotateX(90deg) } 100%{ transform:rotateX(0) } }
+    .c-correct{ background:var(--ok)!important; color:#06110a!important; border-color:transparent }
+    .c-present{ background:var(--maybe)!important; color:#2b1a02!important; border-color:transparent }
+    .c-absent{ background:var(--no)!important; color:#9ca3af!important; border-color:transparent }
+
+    .keyboard{ display:grid; grid-template-columns: repeat(20, minmax(0,1fr)); gap:8px; margin-top:16px }
+    .key{ grid-column: span 2; background:#0b1220; color:var(--text); border:1px solid #334155; border-radius:10px; padding:12px 0; font-weight:700; text-transform:uppercase; text-align:center; cursor:pointer; user-select:none; transition:transform .06s ease, background-color .2s ease;}
+    .key:hover{ transform:translateY(-1px) }
+    .key.wide{ grid-column: span 4 }
+    .key.ok{ background:var(--ok); color:#06110a; border-color:transparent }
+    .key.maybe{ background:var(--maybe); color:#2b1a02; border-color:transparent }
+    .key.no{ background:var(--no); color:#9ca3af; border-color:transparent }
+
+    .status{ margin-top:12px; min-height:24px; color:var(--accent); font-weight:600}
+    .bottom-text{ margin-top:16px; display:none; font-size:2rem; line-height:1.4; text-align:center }
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
+  </style>
+</head>
+<body>
+  <div class="app" role="application" aria-label="Paroledito Crociate">
+    <h1 style="font-size:60px">Paroledito Crociate</h1>
+    <p id="explain" style="font-size:30px"> Letters flip <strong>green</strong> when they’re in the right spot, <strong>yellow</strong> when they’re in the word but elsewhere, and stay dark if they’re not in the word.<br></p>
+    <p style="font-size:50px" id="hint"> The hint is: <b>Who fried my rice?</b>.</p>
+
+    <div class="board" aria-live="polite">
+      <div id="grid"></div>
+      <div class="status" id="status" aria-live="polite"></div>
+      <div class="keyboard" id="kb"></div>
+      <div class="bottom-text" id="postSolve">
+        <img id="tigerPic" src="images/tigers.png" alt="Tigers" style="display:none; margin-top:20px; max-width:80%; border-radius:12px;" />
+        <hr style="border:0; border-top:1px solid #334155; margin:12px 0"/>
+        <p style="font-size:50px"><strong>Nice!</strong> Yes!!!!!! Next hint: go <a href="pingpong.html">here</a> .</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STAGES = [
+      {answer:'shrimp', hint:'Who fried my rice?'},
+      {answer:'flu', hint:'The bird.'},
+      {answer:'one', hint:'I hate diabetes type one.'},
+      {answer:'annacash', hint:'My favorite currency.'},
+      {answer:'raein', hint:'My favorite object in my appartment.'},
+      {answer:'anna', hint:'My favorite person in the math department.'},
+      {answer:'anna', hint:'My favorite person in Münster.'},
+      {answer:'anna', hint:'My favorite friend.'}
+    ];
+
+    let stage = 0;
+    let ANSWER = STAGES[0].answer;
+    let WORD_LEN = ANSWER.length;
+    const MAX_TRIES = 6;
+
+    const grid = document.getElementById('grid');
+    const status = document.getElementById('status');
+    const kb = document.getElementById('kb');
+    const post = document.getElementById('postSolve');
+    const hint = document.getElementById('hint');
+    const tigerPic = document.getElementById('tigerPic');
+
+    let rows = [], board = [], curRow = 0, curCol = 0, gameOver = false;
+    const keyEls = {};
+
+    function buildBoard(){
+      grid.innerHTML = '';
+      rows = [];
+      board = Array.from({length:MAX_TRIES}, ()=>Array(WORD_LEN).fill(''));
+      document.documentElement.style.setProperty('--word-len', WORD_LEN);
+      for(let r=0;r<MAX_TRIES;r++){
+        const row = document.createElement('div');
+        row.className = 'row';
+        const cells = [];
+        for(let c=0;c<WORD_LEN;c++){
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          row.appendChild(cell); cells.push(cell);
+        }
+        grid.appendChild(row); rows.push(cells);
+      }
+      curRow = 0; curCol = 0; gameOver = false;
+    }
+
+    function buildKeyboard(){
+      kb.innerHTML = '';
+      const keys = [
+        [...'qwertyuiop'],
+        [...'asdfghjkl'],
+        ['Enter', ...'zxcvbnm', '⌫']
+      ];
+      keys.forEach((row)=>{
+        row.forEach(k=>{
+          const b = document.createElement('button');
+          b.className = 'key' + (k==='Enter'?' wide': (k==='⌫'?' wide':''));
+          b.textContent = k;
+          b.addEventListener('click', ()=> handleKey(k==='⌫'?'Backspace':k));
+          kb.appendChild(b);
+        });
+      });
+      [...kb.querySelectorAll('.key')].forEach(k=> keyEls[k.textContent.toLowerCase()] = k);
+    }
+
+    function handleKey(k){
+      if(gameOver) return;
+      if(/^([a-zA-Z])$/.test(k)) typeLetter(k.toLowerCase());
+      else if(k==='Backspace') backspace();
+      else if(k==='Enter') submit();
+    }
+
+    function typeLetter(ch){
+      if(curCol>=WORD_LEN) return;
+      board[curRow][curCol]=ch; rows[curRow][curCol].textContent = ch; rows[curRow][curCol].classList.add('filled');
+      curCol++;
+    }
+    function backspace(){
+      if(curCol===0) return;
+      curCol--; board[curRow][curCol]=''; rows[curRow][curCol].textContent=''; rows[curRow][curCol].classList.remove('filled');
+    }
+
+    function submit(){
+      if(curCol<WORD_LEN){ flash('Not enough letters.'); return; }
+      const guess = board[curRow].join('');
+      reveal(guess);
+    }
+
+    function flash(msg){ status.textContent = msg; setTimeout(()=>{ status.textContent=''; }, 1200); }
+
+    function reveal(guess){
+      const res = score(guess, ANSWER);
+      res.forEach((tag, i)=>{
+        const cell = rows[curRow][i];
+        setTimeout(()=>{
+          cell.classList.add('reveal');
+          cell.classList.add(tag.cls);
+        }, i*180);
+      });
+      updateKeyboard(res, guess);
+
+      setTimeout(()=>{
+        if(guess===ANSWER){ win(); }
+        else if(curRow===MAX_TRIES-1){ lose(); }
+        else { curRow++; curCol=0; }
+      }, res.length*180 + 100);
+    }
+
+    function score(guess, answer){
+      const g = [...guess]; const a = [...answer];
+      const out = Array(WORD_LEN).fill(null);
+      const counts = {};
+      a.forEach(ch=> counts[ch] = (counts[ch]||0)+1);
+      for(let i=0;i<WORD_LEN;i++){
+        if(g[i]===a[i]){ out[i] = {cls:'c-correct'}; counts[g[i]]--; }
+      }
+      for(let i=0;i<WORD_LEN;i++){
+        if(out[i]) continue;
+        if(counts[g[i]]>0){ out[i] = {cls:'c-present'}; counts[g[i]]--; }
+        else { out[i] = {cls:'c-absent'}; }
+      }
+      return out;
+    }
+
+    function updateKeyboard(res, guess){
+      for(let i=0;i<WORD_LEN;i++){
+        const ch = guess[i]; const e = keyEls[ch]; if(!e) continue;
+        const prev = e.dataset.state||'';
+        const now = res[i].cls;
+        const rank = s=> s==='c-correct'?3 : s==='c-present'?2 : s==='c-absent'?1 : 0;
+        if(rank(now) > rank(prev)){
+          e.dataset.state = now;
+          e.classList.remove('ok','maybe','no');
+          if(now==='c-correct') e.classList.add('ok');
+          else if(now==='c-present') e.classList.add('maybe');
+          else e.classList.add('no');
+        }
+      }
+    }
+
+    function win(){
+      gameOver = true;
+      stage++;
+      if(stage < STAGES.length){
+        flash('Next!');
+        ANSWER = STAGES[stage].answer;
+        WORD_LEN = ANSWER.length;
+        setTimeout(()=>{
+          buildBoard();
+          buildKeyboard();
+          hint.innerHTML = 'The hint is: <b>' + STAGES[stage].hint + '</b>.';
+        }, 1500);
+      } else {
+        status.textContent = 'You got it!';
+        post.style.display = 'block';
+        tigerPic.style.display = 'block';
+      }
+    }
+
+    function lose(){
+      gameOver = true;
+      status.textContent = `Out of tries. Try again`;
+    }
+
+    window.addEventListener('keydown', (e)=>{
+      if(e.metaKey||e.ctrlKey||e.altKey) return;
+      if(e.key==='Enter' || e.key==='Backspace' || /^[a-zA-Z]$/.test(e.key)){
+        e.preventDefault(); handleKey(e.key);
+      }
+    });
+
+    // init
+    buildBoard();
+    buildKeyboard();
+  </script>
+</body>
+</html>
+
