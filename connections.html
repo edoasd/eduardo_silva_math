@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>cANNActions</title>
+<style>
+    body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        background: #f8f8f8;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .game-container {
+        max-width: 700px;
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .word {
+        background: #ffffff;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        padding: 15px 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        user-select: none;
+        transition: all 0.15s ease;
+    }
+
+    .word.selected {
+        background: #e0e0e0;
+        border-color: #000;
+    }
+
+    .word.locked {
+        cursor: default;
+        color: #000;
+    }
+
+    .controls {
+        margin-top: 20px;
+    }
+
+    button {
+        padding: 10px 18px;
+        font-size: 16px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        background: #000;
+        color: #fff;
+    }
+
+    button:disabled {
+        background: #999;
+        cursor: default;
+    }
+
+    .message {
+        margin-top: 15px;
+        font-size: 16px;
+        min-height: 22px;
+    }
+
+    .group {
+        grid-column: span 4;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 700;
+        margin-bottom: 5px;
+        color: #000;
+    }
+
+    .yellow { background: #f9df6d; }
+    .green  { background: #a0c35a; }
+    .blue   { background: #b0c4ef; }
+    .purple { background: #c6a0d6; }
+
+    .win-screen {
+        margin-top: 40px;
+    }
+
+    .solutions {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+
+    .solutions div {
+        margin: 10px 0;
+    }
+
+    .congrats {
+        font-size: 28px;
+        font-weight: 800;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<div class="game-container">
+    <h1>cANNActions</h1>
+
+    <div id="grid" class="grid"></div>
+
+    <div class="controls">
+        <button id="submitBtn" disabled>Submit</button>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <div id="winScreen" class="win-screen" style="display:none;">
+        <div class="solutions" id="solutions"></div>
+	<div class="congrats">Congratulations! The next hint is <a href="file:///home/eduardo/Documents/public_html/geoguessr.html">HERE</a></div>
+    </div>
+</div>
+
+<script>
+const categories = [
+    {
+        name: "Tiger names",
+        words: ["Tigrotta", "Serafinatrilly", "Raein", "Radura"],
+        color: "yellow"
+    },
+    {
+        name: "Cities we've visited together",
+        words: ["Bristol", "Münster", "Copenhagen", "Tilburg"],
+        color: "green"
+    },
+    {
+        name: "Bands we've seen together",
+        words: ["Page 99", "Blind Girls", "Touché Amoré", "Chat Pile"],
+        color: "blue"
+    },
+    {
+        name: "Synonyms for horse",
+        words: ["Stallion", "Equine", "Mare", "Widge"],
+        color: "purple"
+    }
+];
+
+let allWords = categories.flatMap(c => c.words);
+allWords = shuffle(allWords);
+
+const grid = document.getElementById("grid");
+const submitBtn = document.getElementById("submitBtn");
+const message = document.getElementById("message");
+const winScreen = document.getElementById("winScreen");
+const solutionsDiv = document.getElementById("solutions");
+
+let selected = [];
+let solvedCategories = [];
+
+function renderGrid() {
+    grid.innerHTML = "";
+
+    solvedCategories.forEach(cat => {
+        const group = document.createElement("div");
+        group.className = `group ${cat.color}`;
+        group.textContent = `${cat.name}: ${cat.words.join(", ")}`;
+        grid.appendChild(group);
+    });
+
+    allWords.forEach(word => {
+        if (solvedCategories.some(c => c.words.includes(word))) return;
+
+        const div = document.createElement("div");
+        div.className = "word";
+        div.textContent = word;
+
+        if (selected.includes(word)) {
+            div.classList.add("selected");
+        }
+
+        div.onclick = () => toggleSelect(word);
+        grid.appendChild(div);
+    });
+}
+
+function toggleSelect(word) {
+    if (selected.includes(word)) {
+        selected = selected.filter(w => w !== word);
+    } else {
+        if (selected.length < 4) selected.push(word);
+    }
+    submitBtn.disabled = selected.length !== 4;
+    renderGrid();
+}
+
+submitBtn.onclick = () => {
+    checkSelection();
+};
+
+function checkSelection() {
+    for (let cat of categories) {
+        if (
+            !solvedCategories.includes(cat) &&
+            cat.words.every(w => selected.includes(w))
+        ) {
+            solvedCategories.push(cat);
+            selected = [];
+            message.textContent = "Correct!";
+            submitBtn.disabled = true;
+            renderGrid();
+            checkWin();
+            return;
+        }
+    }
+
+    message.textContent = "Not quite — try again.";
+    selected = [];
+    submitBtn.disabled = true;
+    renderGrid();
+}
+
+function checkWin() {
+    if (solvedCategories.length === categories.length) {
+        grid.style.display = "none";
+        submitBtn.style.display = "none";
+        message.style.display = "none";
+
+        solutionsDiv.innerHTML = categories.map(cat =>
+            `<div>${cat.name}: ${cat.words.join(", ")}</div>`
+        ).join("");
+
+        winScreen.style.display = "block";
+    }
+}
+
+function shuffle(array) {
+    return array
+        .map(v => ({ v, r: Math.random() }))
+        .sort((a, b) => a.r - b.r)
+        .map(o => o.v);
+}
+
+renderGrid();
+</script>
+
+</body>
+</html>
+
