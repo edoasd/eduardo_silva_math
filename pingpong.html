@@ -198,6 +198,35 @@ function handleTouch(e) {
   setInterval(update,1000/60);
 })();
 </script>
+<body tabindex="0">
+
+<audio id="bg-audio" preload="auto">
+  <source src="brightside.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const audio = document.getElementById("bg-audio");
+
+  function startAudio() {
+    audio.play().catch(() => {});
+    cleanup();
+  }
+
+  function cleanup() {
+    document.removeEventListener("keydown", startAudio);
+    document.removeEventListener("click", startAudio);
+  }
+
+  // Focus is REQUIRED for keyboard gestures to count
+  window.addEventListener("load", () => {
+    document.body.focus();
+  });
+
+  document.addEventListener("keydown", startAudio);
+  document.addEventListener("click", startAudio); // fallback
+</script>
+</body>
+
 </body>
 </html>
 
