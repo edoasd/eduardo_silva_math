@@ -213,21 +213,6 @@ a.show:focus ~ blockquote {display:inline-block;}
   border-radius: 10px;
   padding-left: 20px;
 }
-.profile-pic {
-    float: right;
-    width: 200px;
-    max-width: 40%;
-    height: auto;
-    margin-left: 20px;
-}
-@media (max-width: 768px) {
-    .profile-pic {
-        float: none;
-        display: block;
-        margin: 0 auto 20px auto;
-        width: 60%;
-    }
-}
 .botoncito_lindo {
     background-color: #3fa2ff;
     border-radius: 10px;
