@@ -293,6 +293,7 @@ a.show:focus ~ blockquote {display:inline-block;}
   gap: 30px;
   align-items: flex-start;
   flex-wrap: wrap;
+  max-width: 1650px;
 }
 
 .winner img {
